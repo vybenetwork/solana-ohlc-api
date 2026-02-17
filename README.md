@@ -60,23 +60,46 @@ Then open **http://localhost:3000**. The UI shows **OHLC candlestick** charts fo
 
 The included web app is a **Solana OHLC** and **candlestick** viewer: enter a token mint and view **candlestick** charts (OHLC) with configurable resolution (1m–1d); browse markets/pools for a DEX (e.g. Orca Whirlpool, Raydium) to see where the token trades; and toggle between chart and table views of **candlestick data**. All **OHLC** and **candlestick** data is loaded from the Vybe **Solana OHLC API** and rendered in the browser.
 
-## Solana Endpoints Used
+## API base and auth
 
-| Endpoint | Purpose |
-|----------|---------|
-| `GET /v4/tokens/{mintAddress}/candles` | OHLC candlestick data for a token (resolution 1m–1y, volume, count) |
-| `GET /v4/markets` | List markets/pools for a DEX (programAddress); use for pool-specific candlestick charts |
+- **Base URL:** `https://api.vybenetwork.xyz`
+- **Headers:** `X-API-KEY: <your-api-key>`, `Accept: application/json`
+
+## Solana endpoints and parameters
+
+### 1. Token OHLC candles
+
+**`GET /v4/tokens/{mintAddress}/candles`** — OHLC candlestick data for a token (open, high, low, close, volume, count).
+
+| Type | Name | Required | Description |
+|------|------|----------|-------------|
+| Path | `mintAddress` | Yes | Token mint (SPL, base58) |
+| Query | `resolution` | No | Candle size: `1m`, `5m`, `15m`, `1h`, `4h`, `1d`, `1w`, `1y` (default varies) |
+| Query | `limit` | No | Number of candles to return |
+| Query | `timeStart` | No | Start time (Unix seconds) |
+| Query | `timeEnd` | No | End time (Unix seconds) |
+| Query | `eliminateCloseToOpenGaps` | No | If true, adjust for gaps between candles (boolean) |
+
+### 2. Markets / pools
+
+**`GET /v4/markets`** — List markets/pools for a DEX program.
+
+| Type | Name | Required | Description |
+|------|------|----------|-------------|
+| Query | `programAddress` | **Yes** | DEX program ID, e.g. Raydium V4: `675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8`, Orca Whirlpool: `whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc`, Pump.fun: `6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P` |
+| Query | `limit` | No | Max number of markets (number) |
+| Query | `offset` | No | Pagination offset (number) |
 
 - [Fetch OHLC Candles](https://docs.vybenetwork.com/docs/fetch-ohlc-candles)
 - [Fetch Markets / Pools](https://docs.vybenetwork.com/docs/fetch-markets-pools)
 
-## Code Example
+## Code example
 
 ```javascript
 const axios = require('axios');
 
-const API = 'https://api.vybenetwork.com';
-const headers = { 'X-API-Key': process.env.VYBE_API_KEY };
+const API = 'https://api.vybenetwork.xyz';
+const headers = { 'X-API-KEY': process.env.VYBE_API_KEY, 'Accept': 'application/json' };
 
 // 1) Token OHLC candlestick data (aggregated across vetted markets)
 async function getOHLCCandles(mintAddress, resolution = '1h', limit = 24) {
@@ -87,7 +110,7 @@ async function getOHLCCandles(mintAddress, resolution = '1h', limit = 24) {
   return data;
 }
 
-// 2) Markets/pools for a DEX – use marketId for pool-specific candlestick data
+// 2) Markets/pools for a DEX – programAddress is required
 async function getMarkets(programAddress, limit = 20) {
   const { data } = await axios.get(
     `${API}/v4/markets`,
@@ -97,14 +120,14 @@ async function getMarkets(programAddress, limit = 20) {
 }
 
 const solMint = 'So11111111111111111111111111111111111111112';
-const orcaWhirlpool = 'whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc';
+const raydiumV4 = '675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8';
 
 Promise.all([
   getOHLCCandles(solMint, '1h', 24),
-  getMarkets(orcaWhirlpool, 10)
+  getMarkets(raydiumV4, 10)
 ]).then(([candles, markets]) => {
   console.log('OHLC candlestick count:', candles.data?.length);
-  console.log('Markets sample:', markets.data?.slice(0, 3).map(m => m.marketName));
+  console.log('Markets sample:', markets.data?.slice(0, 3).map(m => m.marketAddress));
 });
 ```
 
