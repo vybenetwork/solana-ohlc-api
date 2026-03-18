@@ -621,6 +621,11 @@ function buildTradesParamsBase(): URLSearchParams {
   const mintAddress = mintAddressInput.value.trim();
   if (mintAddress) params.set('mintAddress', mintAddress);
 
+  if (candlesSourceSelect?.value === 'market') {
+    const marketAddress = candlesMarketAddressInput?.value.trim() ?? '';
+    if (marketAddress) params.set('marketAddress', marketAddress);
+  }
+
   const timeStart = parseUnixSecondsFromDatetimeLocal(timeStartInput.value);
   if (timeStart != null) params.set('timeStart', String(timeStart));
   const timeEnd = parseUnixSecondsFromDatetimeLocal(timeEndInput.value);
