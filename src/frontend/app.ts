@@ -1225,7 +1225,9 @@ function buildLocalFilterRows(remoteTradesOverride?: VybeTrade[]): void {
         for (const { marketAddress, totalCount, programAddress } of marketsList) {
           const marketTradesAfterWickFilter = tradesForQuoteToUse.filter((t) => (t.marketAddress ?? '').trim() === marketAddress);
           const filteredCount = marketTradesAfterWickFilter.length;
-          const candles = buildCandlesFromTradesForMarket(tradesForQuoteToUse, resolution, baseMint, quoteMint, marketAddress);
+          // Build candles from all trades (candle-based rule), then drop candles with close-to-open gap > deviation %
+          let candles = buildCandlesFromTradesForMarket(tradesForQuote, resolution, baseMint, quoteMint, marketAddress);
+          if (deviationFactor > 0) candles = filterCandlesByCloseOpenGap(candles, deviationFactor);
           filteredCandlesByMarket.set(marketAddress, candles);
           const highVal = candles.length > 0 ? Math.max(...candles.map((c) => c.high)) : -Infinity;
           const lowVal = candles.length > 0 ? Math.min(...candles.map((c) => c.low)) : Infinity;
@@ -1675,6 +1677,24 @@ function buildCandlesFromTradesForMarket(
     .sort((a, b) => a.time - b.time);
 }
 
+/**
+ * When filter wicks is on: drop candles whose close is more than deviationFactor (e.g. 0.99 = 99%)
+ * away from the next candle's open. Removes the candle that "closed way above/below" the next open.
+ */
+function filterCandlesByCloseOpenGap(candles: Candle[], deviationFactor: number): Candle[] {
+  if (deviationFactor <= 0 || candles.length <= 1) return candles;
+  const exclude = new Set<number>();
+  for (let i = 0; i < candles.length - 1; i++) {
+    const close = candles[i]!.close;
+    const nextOpen = candles[i + 1]!.open;
+    const ref = (close + nextOpen) / 2;
+    if (ref <= 0 || !Number.isFinite(ref)) continue;
+    const gapPct = Math.abs(close - nextOpen) / ref;
+    if (gapPct > deviationFactor) exclude.add(i);
+  }
+  return candles.filter((_, i) => !exclude.has(i));
+}
+
 function median(sortedArr: number[]): number {
   if (sortedArr.length === 0) return 0;
   const mid = Math.floor(sortedArr.length / 2);
@@ -1915,6 +1935,11 @@ async function refreshCandles(tradesSnapshot?: VybeTrade[]): Promise<void> {
       const chartQuote = getSelectedChartQuoteMint();
       if (chartQuote) tradesToUse = tradesToUse.filter((t) => otherMint(t, mint) === chartQuote);
       candles = buildCandlesFromTrades(tradesToUse, resolution, mint);
+      // Candle-based rule: drop candles whose close is > deviation % away from next open (independent of filter wicks)
+      const rawPct = Number(wickDeviationPctInput?.value ?? 0);
+      const pct = Number.isFinite(rawPct) ? Math.max(0, Math.min(100, rawPct)) : 0;
+      const gapFactor = pct > 0 ? pct / 100 : 0;
+      if (gapFactor > 0) candles = filterCandlesByCloseOpenGap(candles, gapFactor);
       if (eliminateCloseToOpenGapsCheckbox?.checked && candles.length > 0) {
         for (let i = 1; i < candles.length; i++) candles[i].open = candles[i - 1].close;
       }

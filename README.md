@@ -4,11 +4,11 @@ This repository demonstrates how to use the Vybe Solana OHLC candlestick data AP
 
 Use this project as a reference implementation or starter kit for building Solana price charting UIs, backtesting pipelines, and on-chain candlestick data products powered by Vybe’s high-performance Solana OHLC API.
 
-![Solana Trade History API Historical Trade Data API](screenshots/solana-trade-history-api-historical-trade-data-api.png)
+![Solana Trade History API Historical Trade Data API](screenshots/solana-ohlc-candlestick-data-api-repo.png)
 
 <p align="center">
-  <img src="screenshots/solana-historical-trade-data-api-endpoint.png" alt="Solana Historical Trade Data API Endpoint" width="320" style="min-width:320px;max-width:320px;margin-right:10px;" />
-  <img src="screenshots/pumpfun-raydium-historical-data-api-endpoint-provider-on-solana.png" alt="Pump.fun Raydium Historical Data API Endpoint Provider on Solana" width="320" style="min-width:320px;max-width:320px;" />
+  <img src="screenshots/solana-ohlc-data-provider-fetch-candlesticks.png" alt="Solana Historical Trade Data API Endpoint" width="320" style="min-width:320px;max-width:320px;margin-right:10px;" />
+  <img src="screenshots/solana-ohlc-api-endpoint-candlestick-charts.png" alt="Pump.fun Raydium Historical Data API Endpoint Provider on Solana" width="320" style="min-width:320px;max-width:320px;" />
 </p>
 
 ---

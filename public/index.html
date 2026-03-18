@@ -351,8 +351,8 @@
                 <div class="field-switch-header">
                   <span class="label-icon field-icon icon-grid" aria-hidden="true"></span>
                   <span class="field-switch-title">Deviation</span>
-                  <span class="field-switch-info icon-info-wrap" title="Exclude trades whose price is more than this % above/below the lookback median (0 = no deviation filter)." aria-label="More info">
-                    <span class="label-icon field-icon icon-info" aria-hidden="true" title="Exclude trades whose price is more than this % above/below the lookback median."></span>
+                  <span class="field-switch-info icon-info-wrap" title="(1) Exclude trades whose price is more than this % above/below the lookback median. (2) Exclude candles whose close is more than this % away from the next open (0 = no deviation filter)." aria-label="More info">
+                    <span class="label-icon field-icon icon-info" aria-hidden="true" title="Wick filter: trades beyond lookback median; candles with close-to-next-open gap &gt; this %."></span>
                   </span>
                 </div>
                 <div class="field-control field-control-input-suffix">
