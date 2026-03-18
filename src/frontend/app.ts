@@ -1313,7 +1313,7 @@ function buildLocalFilterRows(remoteTradesOverride?: VybeTrade[]): void {
         const isMarketExcluded = excludedMarkets.has(marketAddress);
         const marketLink = `${SOLSCAN_ACCOUNT}${encodeURIComponent(marketAddress)}`;
         const poolTitle = programAddress
-          ? (programLabelCache[programAddress] ?? truncate(programAddress, 4, 4))
+          ? (programLabelCache[programAddress] ?? WELL_KNOWN_PROGRAMS[programAddress] ?? truncate(programAddress, 4, 4))
           : truncate(marketAddress, 4, 4);
         const highR = Number.isFinite(highVsMedianPct) ? Math.round(highVsMedianPct) : null;
         const lowR = Number.isFinite(lowVsMedianPct) ? Math.round(lowVsMedianPct) : null;

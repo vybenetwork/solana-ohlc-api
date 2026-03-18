@@ -59,8 +59,7 @@ Get your API key at `https://vybenetwork.com/pricing`.
     - `GET /v4/markets/{marketAddress}/candles` (OHLC for a single market)
     - `GET /v4/trades`
     - `GET /v4/programs/labeled-program-accounts`
-    - `GET /v4/tokens/{mintAddress}`
-    - `GET /v4/tokens/{mintAddress}/top-holders`
+    - `GET /v4/tokens/{mintAddress}` (token metadata for the UI header)
 - **OHLC candlestick web UI**
   - Single-page GUI (no frameworks) built from `src/frontend/app.ts` into `public/app.js`.
   - Lets you view candlestick charts and trade flows for a token, across three data sources: vetted token OHLC, OHLC rebuilt from trades, or OHLC by market address.
@@ -92,8 +91,6 @@ All of this uses Vybe’s production OHLC and trade data across Pump.fun, Raydiu
   - [https://docs.vybenetwork.com/reference/get_trade_data_program_v4](https://docs.vybenetwork.com/reference/get_trade_data_program_v4?utm_source=github&utm_medium=repo&utm_campaign=solana-ohlc-candlestick-data-api)
 - **Token details (`GET /v4/tokens/{mintAddress}`)**:
   - [https://docs.vybenetwork.com/reference/get_token_details_v4](https://docs.vybenetwork.com/reference/get_token_details_v4?utm_source=github&utm_medium=repo&utm_campaign=solana-ohlc-candlestick-data-api)
-- **Top holders (`GET /v4/tokens/{mintAddress}/top-holders`)**:
-  - [https://docs.vybenetwork.com/reference/get_top_holders_v4](https://docs.vybenetwork.com/reference/get_top_holders_v4?utm_source=github&utm_medium=repo&utm_campaign=solana-ohlc-candlestick-data-api)
 - **Labeled programs (`GET /v4/programs/labeled-program-accounts`)**:
   - [https://docs.vybenetwork.com/reference/get_known_program_accounts_v4](https://docs.vybenetwork.com/reference/get_known_program_accounts_v4?utm_source=github&utm_medium=repo&utm_campaign=solana-ohlc-candlestick-data-api)
 
@@ -119,7 +116,7 @@ The OHLC candlestick UI is implemented in `src/frontend/app.ts` and compiled to 
 ### Sections
 
 - **Token metadata header**
-  - Shows symbol, name, mint, decimals, price, market cap, 24h volume, and holders where available.
+  - Shows symbol, name, mint, decimals, price, market cap, 24h volume where available (from `GET /api/tokens/:mint`).
   - Falls back to Metaplex/`/api/token-symbol/:mint` when token details fail.
 
 ![Solana Token Details API Fetch Metadata](screenshots/solana-token-details-api-fetch-metadata.png)
@@ -227,7 +224,7 @@ The UI exposes two main export actions:
 The Express server in `src/server.ts` exposes:
 
 - **`GET /api/tokens/:mint`**
-  - Proxies to Vybe `GET /v4/tokens/{mintAddress}` for token metadata.
+  - Proxies to Vybe `GET /v4/tokens/{mintAddress}` for token metadata (used by the UI header).
 - **`GET /api/tokens/:mint/candles`**
   - Proxies to Vybe `GET /v4/tokens/{mintAddress}/candles` with query params: resolution, limit, page, timeStart, timeEnd, eliminateCloseToOpenGaps.
 - **`GET /api/markets/:marketAddress/candles`**
@@ -235,21 +232,17 @@ The Express server in `src/server.ts` exposes:
 - **`GET /api/trades`**
   - Proxies to Vybe `GET /v4/trades` with query params: mintAddress, marketAddress, timeStart, timeEnd, page, limit, sortByAsc, sortByDesc. When marketAddress is provided, base/quote mints are ignored per API docs.
 - **`GET /api/programs/labeled-program-account?programAddress=…`**
-  - Proxies to Vybe `GET /v4/programs/labeled-program-accounts?programAddress=…`. Cached on disk (project root).
+  - Proxies to Vybe `GET /v4/programs/labeled-program-accounts?programAddress=…`. Cached on disk (data/).
 - **`POST /api/programs/labeled-program-accounts`**
   - Batch variant for multiple program addresses; responses cached on disk.
 - **`GET /api/token-symbol/:mint`**
-  - Resolves symbol via Metaplex and/or Vybe token details; cached on disk (project root).
+  - Resolves symbol via Metaplex and/or Vybe token details; cached on disk (data/).
 - **`POST /api/token-symbols`**
   - Batch symbol lookup for multiple mints; updates symbol cache.
-- **`GET /api/tokens/:mint/top-holders`**
-  - Proxies to Vybe `GET /v4/tokens/{mintAddress}/top-holders`; holder results cached on disk.
-- **`GET /api/tokens/:mint/holder-labels`**
-  - Uses cached top holders to build wallet labels for addresses seen in trades.
 - **`GET /api/health`**
   - Health check.
 
-All Vybe requests use a shared client (`src/api/index.ts`) with timeouts and error handling (`toHumanReadableError`). Symbol, program-label, and holder caches are JSON files in the project root.
+All Vybe requests use a shared client (`src/api/index.ts`) with timeouts and error handling (`toHumanReadableError`). Symbol and program-label caches are JSON files in the data/ folder.
 
 ---
 
@@ -316,14 +309,13 @@ solana-ohlc-candlestick-data-api/
 └── src/
     ├── server.ts          # Express server; proxies Vybe API and serves public/
     ├── config.ts          # Env loading, API base URL, timeouts, PUBLIC_DIR
-    ├── cache.ts           # On-disk caches (symbol, program-label, holder) in project root
+    ├── cache.ts           # On-disk caches (symbol, program-label) in data/
     ├── types/
     │   └── api.ts         # Interfaces matching Vybe API response shapes
     ├── api/
     │   ├── index.ts       # createClient(apiKey) — wires all API methods
     │   ├── client.ts      # Axios wrapper, retries, human-readable errors
     │   ├── tokens.ts      # GET /v4/tokens/{mintAddress}
-    │   ├── top-holders.ts # GET /v4/tokens/{mintAddress}/top-holders
     │   ├── trades.ts      # GET /v4/trades, /v4/programs/labeled-program-accounts
     │   ├── candles.ts     # GET /v4/tokens/{mintAddress}/candles
     │   ├── market-candles.ts # GET /v4/markets/{marketAddress}/candles

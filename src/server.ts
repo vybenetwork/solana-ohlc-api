@@ -13,9 +13,6 @@ import {
   writeSymbolCacheToDisk,
   readProgramCacheFromDisk,
   writeProgramCacheToDisk,
-  readHolderCacheFromDisk,
-  writeHolderCacheToDisk,
-  HOLDER_CACHE_TTL_MS,
 } from './cache.js';
 
 loadEnv();
@@ -156,71 +153,6 @@ app.get('/api/token-symbol/:mint', async (req: Request, res: Response) => {
   } catch (err) {
     const status = (err as { response?: { status?: number } })?.response?.status ?? 500;
     res.status(status).json({ error: toHumanReadableError(err), symbol: Array.isArray(req.params.mint) ? req.params.mint[0] : req.params.mint });
-  }
-});
-
-app.get('/api/tokens/:mint/top-holders', async (req: Request, res: Response) => {
-  try {
-    const rawMint = req.params.mint;
-    const mint = (Array.isArray(rawMint) ? rawMint[0] : rawMint ?? '').trim();
-    if (!mint) return res.status(400).json({ error: 'Mint address required' });
-    const cache = readHolderCacheFromDisk();
-    const now = Date.now();
-    const cached = cache[mint];
-    if (cached && now - cached.fetchedAt < HOLDER_CACHE_TTL_MS) {
-      return res.json({ data: cached.data });
-    }
-    const limit = Math.min(1000, Math.max(0, qNum(req, 'limit') ?? 1000));
-    const page = Math.max(0, Math.trunc(qNum(req, 'page') ?? 0));
-    const data = await client.getTopHolders(mint, { page, limit });
-    const list = data.data ?? [];
-    cache[mint] = { data: list, fetchedAt: now };
-    writeHolderCacheToDisk(cache);
-    res.json(data);
-  } catch (err) {
-    const status = (err as { response?: { status?: number } })?.response?.status ?? 500;
-    res.status(status).json({ error: toHumanReadableError(err) });
-  }
-});
-
-app.get('/api/tokens/:mint/holder-labels', async (req: Request, res: Response) => {
-  try {
-    const rawMint = req.params.mint;
-    const mint = (Array.isArray(rawMint) ? rawMint[0] : rawMint ?? '').trim();
-    if (!mint) return res.status(400).json({ error: 'Mint address required' });
-    const walletsRaw = q(req, 'wallets').trim();
-    const wallets = walletsRaw ? walletsRaw.split(/[\s,]+/).map((w) => w.trim()).filter(Boolean) : [];
-    const labels: Record<string, string> = {};
-    if (wallets.length === 0) return res.json({ labels });
-
-    const cache = readHolderCacheFromDisk();
-    let entry = cache[mint];
-    const now = Date.now();
-    if (!entry || now - entry.fetchedAt >= HOLDER_CACHE_TTL_MS) {
-      const data = await client.getTopHolders(mint, { limit: 1000 });
-      const list = data.data ?? [];
-      cache[mint] = { data: list, fetchedAt: now };
-      writeHolderCacheToDisk(cache);
-      entry = cache[mint]!;
-    }
-    const byAddr = new Map<string, { rank: number; ownerName?: string | null }>();
-    for (const h of entry.data) {
-      const addr = (h.ownerAddress ?? '').trim();
-      if (!addr) continue;
-      byAddr.set(addr, { rank: h.rank ?? 0, ownerName: h.ownerName ?? null });
-    }
-    for (const addr of wallets) {
-      if (!addr) continue;
-      const h = byAddr.get(addr);
-      if (h) {
-        const label = (h.ownerName ?? '').trim() || `Top #${h.rank}`;
-        labels[addr] = label;
-      }
-    }
-    res.json({ labels });
-  } catch (err) {
-    const status = (err as { response?: { status?: number } })?.response?.status ?? 500;
-    res.status(status).json({ error: toHumanReadableError(err) });
   }
 });
 

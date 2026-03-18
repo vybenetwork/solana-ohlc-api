@@ -18,9 +18,6 @@ npm
 # Debug artifacts
 debug-*.json
 
-# Persistent caches (read/write at request time, project root like token-stats/historical-trade)
+# Persistent caches (read/write at request time, stored in data/)
 data/
-symbol-cache.json
-program-label-cache.json
-holder-cache.json
 
