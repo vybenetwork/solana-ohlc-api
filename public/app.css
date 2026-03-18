@@ -607,8 +607,8 @@ button:disabled {
   display: none !important;
 }
 .candles-market-address-input {
-  width: 20rem;
-  max-width: 100%;
+  width: 420px;
+  max-width: 420px;
   padding: 0.35rem 0.5rem;
   font-size: 0.8rem;
   font-family: ui-monospace, monospace;
