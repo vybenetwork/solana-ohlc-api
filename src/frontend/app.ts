@@ -1199,11 +1199,13 @@ function buildLocalFilterRows(remoteTradesOverride?: VybeTrade[]): void {
             if (lookbackTrades.length === 0) continue;
             const lookbackPrices = lookbackTrades.map((x) => getPrice(x)).filter(Number.isFinite);
             if (lookbackPrices.length === 0) continue;
-            const med = median([...lookbackPrices].sort((a, b) => a - b));
-            if (!Number.isFinite(med) || med <= 0) continue;
+            const lookbackMin = Math.min(...lookbackPrices);
+            const lookbackMax = Math.max(...lookbackPrices);
+            if (!Number.isFinite(lookbackMin) || !Number.isFinite(lookbackMax) || lookbackMax <= 0) continue;
+            // Only exclude trades that extend *beyond* the lookback range (true wicks), not trades within the range.
             if (deviationFactor > 0) {
-              if (excludeHighWick && p >= med * (1 + deviationFactor)) excludedSignatures.add(t.signature);
-              else if (excludeLowWick && p <= med * (1 - deviationFactor)) excludedSignatures.add(t.signature);
+              if (excludeHighWick && p > lookbackMax * (1 + deviationFactor)) excludedSignatures.add(t.signature);
+              else if (excludeLowWick && p < lookbackMin * (1 - deviationFactor)) excludedSignatures.add(t.signature);
             }
           }
         }
@@ -2439,6 +2441,21 @@ async function onFetch(): Promise<void> {
     const fullRemoteForDisplay = getRemoteTradesForDisplay();
     lastFilteredTrades = applyLocalFilters(fullRemoteForDisplay);
     lastFilteredTradesForPerQuote = applyLocalFiltersWithoutPerQuoteRules(fullRemoteForDisplay);
+    // Build wick-filtered data and paint chart first so the chart appears quickly (does not wait for symbol/program API calls).
+    buildLocalFilterRows(fullRemoteForDisplay);
+    if (chartQuotesWrap && !chartQuotesWrap.hidden && chartQuoteSelect) {
+      buildChartQuotesRadios();
+    }
+    if (candlesSourceSelect?.value === 'trades' && candlesResolutionSelect && candlesChartEl) {
+      if (filterWicksCheckbox?.checked) {
+        requestAnimationFrame(() => requestAnimationFrame(() => refreshCandles()));
+      } else {
+        void refreshCandles();
+      }
+    } else if (!fetchedCandlesAtStart && candlesResolutionSelect && candlesChartEl) {
+      void refreshCandles();
+    }
+    // Then fetch symbols and program labels for the table (chart is already visible).
     await ensureQuoteSymbols(lastFilteredTrades, mintAddressInput.value.trim());
     await ensureSymbolsForTrades(lastFilteredTrades);
     await ensureProgramLabels(lastFilteredTrades);
@@ -2449,22 +2466,6 @@ async function onFetch(): Promise<void> {
       query: pages.length > 1 ? `pages=${pages[0]}..${pages[pages.length - 1]}` : `page=${pages[0]}`,
     });
     setExportButtonsState();
-    // Build per-quote rows (and wick-filtered data) before radios so any 'change' from buildChartQuotesRadios sees filtered data.
-    buildLocalFilterRows(fullRemoteForDisplay);
-    if (chartQuotesWrap && !chartQuotesWrap.hidden && chartQuoteSelect) {
-      buildChartQuotesRadios();
-    }
-    // Refresh chart: for trades mode use final wick-filtered data; for full/market only if we didn't fetch candles in the loop.
-    if (candlesSourceSelect?.value === 'trades' && candlesResolutionSelect && candlesChartEl) {
-      if (filterWicksCheckbox?.checked) {
-        // Double rAF so chart paints after next frame and never shows a flash of unfiltered wicks.
-        requestAnimationFrame(() => requestAnimationFrame(() => refreshCandles()));
-      } else {
-        void refreshCandles();
-      }
-    } else if (!fetchedCandlesAtStart && candlesResolutionSelect && candlesChartEl) {
-      void refreshCandles();
-    }
   } catch (err) {
     showError(err instanceof Error ? err.message : String(err));
   } finally {
@@ -2609,7 +2610,7 @@ if (wickDeviationPctInput) {
 }
 if (eliminateCloseToOpenGapsCheckbox) {
   eliminateCloseToOpenGapsCheckbox.addEventListener('change', () => {
-    if (candlesSourceSelect?.value === 'trades' && candlesChartEl) void refreshCandles(lastFilteredTrades);
+    if (candlesChartEl && candlesResolutionSelect) void refreshCandles();
   });
 }
 
@@ -2749,8 +2750,9 @@ buildChartQuotesRadios();
 if (chartQuoteSelect) {
   chartQuoteSelect.addEventListener('change', () => {
     onLocalFilterChange();
-    if (candlesSourceSelect?.value === 'trades' && candlesChartEl && candlesResolutionSelect) {
-      void refreshCandles(lastFilteredTrades);
+    // Always refresh chart when quote currency changes so it shows the selected pair.
+    if (candlesChartEl && candlesResolutionSelect) {
+      void refreshCandles();
     }
   });
 }
