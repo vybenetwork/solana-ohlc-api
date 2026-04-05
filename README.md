@@ -13,8 +13,8 @@ Use this project as a reference implementation or starter kit for building Solan
 
 ---
 
-**[Get your free Vybe API key →](https://vybenetwork.com/pricing?utm_source=github&utm_medium=repo&utm_campaign=solana-ohlc-candlestick-data-api)**  
-**[Vybe OHLC candles docs →](https://docs.vybenetwork.com/docs/fetch-ohlc-candles?utm_source=github&utm_medium=repo&utm_campaign=solana-ohlc-candlestick-data-api)**
+**[Get your free Vybe API key →](https://vybenetwork.com/pricing)**  
+**[Vybe OHLC candles docs →](https://docs.vybenetwork.com/docs/fetch-ohlc-candles)**
 
 ---
 
@@ -84,15 +84,15 @@ All of this uses Vybe’s production OHLC and trade data across Pump.fun, Raydiu
 ### Solana API docs for these endpoints
 
 - **Token OHLC candles (`GET /v4/tokens/{mintAddress}/candles`)**:
-  - [https://docs.vybenetwork.com/docs/fetch-ohlc-candles](https://docs.vybenetwork.com/docs/fetch-ohlc-candles?utm_source=github&utm_medium=repo&utm_campaign=solana-ohlc-candlestick-data-api)
+  - [https://docs.vybenetwork.com/docs/fetch-ohlc-candles](https://docs.vybenetwork.com/docs/fetch-ohlc-candles)
 - **Market OHLC (`GET /v4/markets/{marketAddress}/candles`)**:
-  - [https://docs.vybenetwork.com/docs/fetch-markets-pools](https://docs.vybenetwork.com/docs/fetch-markets-pools?utm_source=github&utm_medium=repo&utm_campaign=solana-ohlc-candlestick-data-api)
+  - [https://docs.vybenetwork.com/docs/fetch-markets-pools](https://docs.vybenetwork.com/docs/fetch-markets-pools)
 - **Historical Trades (`GET /v4/trades`)**:
-  - [https://docs.vybenetwork.com/reference/get_trade_data_program_v4](https://docs.vybenetwork.com/reference/get_trade_data_program_v4?utm_source=github&utm_medium=repo&utm_campaign=solana-ohlc-candlestick-data-api)
+  - [https://docs.vybenetwork.com/reference/get_trade_data_program_v4](https://docs.vybenetwork.com/reference/get_trade_data_program_v4)
 - **Token details (`GET /v4/tokens/{mintAddress}`)**:
-  - [https://docs.vybenetwork.com/reference/get_token_details_v4](https://docs.vybenetwork.com/reference/get_token_details_v4?utm_source=github&utm_medium=repo&utm_campaign=solana-ohlc-candlestick-data-api)
+  - [https://docs.vybenetwork.com/reference/get_token_details_v4](https://docs.vybenetwork.com/reference/get_token_details_v4)
 - **Labeled programs (`GET /v4/programs/labeled-program-accounts`)**:
-  - [https://docs.vybenetwork.com/reference/get_known_program_accounts_v4](https://docs.vybenetwork.com/reference/get_known_program_accounts_v4?utm_source=github&utm_medium=repo&utm_campaign=solana-ohlc-candlestick-data-api)
+  - [https://docs.vybenetwork.com/reference/get_known_program_accounts_v4](https://docs.vybenetwork.com/reference/get_known_program_accounts_v4)
 
 ---
 
