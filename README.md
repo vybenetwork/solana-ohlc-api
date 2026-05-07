@@ -2,7 +2,7 @@
 
 This repository demonstrates how to use the Vybe Solana OHLC candlestick data API to fetch, display, and export Open, High, Low, Close (OHLC) candlestick data for any Token-2022 or SPL token. It includes a production-ready Node.js backend and a modern frontend that show how to integrate Vybe’s token candles, market candles, and trades endpoints to explore candlestick charts from vetted markets, rebuild OHLC from trade history, or fetch by market address, with CSV export for downstream analysis.
 
-Live Demo: https://solana-ohlc-candlestick-data-api.vybenetwork.com
+Try the live demo: https://solana-ohlc-candlestick-data-api.vybenetwork.com
 
 Use this project as a reference implementation or starter kit for building Solana price charting UIs, backtesting pipelines, and on-chain candlestick data products powered by Vybe’s high-performance Solana OHLC API.
 
@@ -15,6 +15,7 @@ Use this project as a reference implementation or starter kit for building Solan
 
 ---
 
+**[Try the LIVE demo →](https://docs.vybenetwork.com/docs/fetch-ohlc-candles)**
 **[Get your free Vybe API key →](https://vybenetwork.com/pricing)**  
 **[Vybe OHLC candles docs →](https://docs.vybenetwork.com/docs/fetch-ohlc-candles)**
 
