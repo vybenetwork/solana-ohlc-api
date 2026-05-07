@@ -15,7 +15,7 @@ Use this project as a reference implementation or starter kit for building Solan
 
 ---
 
-**[Try the LIVE demo →](https://docs.vybenetwork.com/docs/fetch-ohlc-candles)**
+**[Try the LIVE demo →](https://solana-ohlc-candlestick-data-api.vybenetwork.com)**
 
 **[Get your free Vybe API key →](https://vybenetwork.com/pricing)**  
 
