@@ -78,8 +78,10 @@ interface Candle {
   volume?: number;
 }
 
-/** Matches Vybe OHLC docs default `timeStart` (two weeks before end). Used for token + market candle requests. */
-const DEFAULT_OHLC_LOOKBACK_SECONDS = 14 * 24 * 60 * 60;
+/** Default candle window length: five days before `timeEnd`. */
+const DEFAULT_OHLC_LOOKBACK_SECONDS = 5 * 24 * 60 * 60;
+/** Default `timeEnd` is this many seconds before the current moment (avoids incomplete latest bar). */
+const DEFAULT_OHLC_END_BEFORE_NOW_SECONDS = 5 * 60;
 
 const mintAddressInput = document.getElementById('mintAddress') as HTMLInputElement;
 const timeStartInput = document.getElementById('timeStart') as HTMLInputElement;
@@ -569,13 +571,13 @@ function formatDatetimeLocalFromDate(d: Date): string {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
 }
 
-/** Populate Start/End remote filters: now − 14 days through now. */
+/** Populate Start/End remote filters: 5 days ending at now − 5 minutes. */
 function applyDefaultRemoteTimeRange(): void {
   if (!timeStartInput || !timeEndInput) return;
-  const now = new Date();
-  const start = new Date(now.getTime() - DEFAULT_OHLC_LOOKBACK_SECONDS * 1000);
+  const end = new Date(Date.now() - DEFAULT_OHLC_END_BEFORE_NOW_SECONDS * 1000);
+  const start = new Date(end.getTime() - DEFAULT_OHLC_LOOKBACK_SECONDS * 1000);
   timeStartInput.value = formatDatetimeLocalFromDate(start);
-  timeEndInput.value = formatDatetimeLocalFromDate(now);
+  timeEndInput.value = formatDatetimeLocalFromDate(end);
 }
 
 function parseNumberOrUndefined(v: string): number | undefined {
@@ -1510,10 +1512,11 @@ async function fetchCandlesFromApi(mint: string, resolution: string, pageOverrid
   const limit = Number(limitSelect?.value) || 1000;
   const page = pageOverride !== undefined ? pageOverride : Math.max(0, Math.trunc(Number(pageFromInput?.value || '0')));
   const nowSec = Math.floor(Date.now() / 1000);
+  const defaultEndSec = nowSec - DEFAULT_OHLC_END_BEFORE_NOW_SECONDS;
   let timeStart = parseUnixSecondsFromDatetimeLocal(timeStartInput?.value ?? '');
   let timeEnd = parseUnixSecondsFromDatetimeLocal(timeEndInput?.value ?? '');
-  if (timeEnd == null || timeEnd < 0) timeEnd = nowSec;
-  if (timeStart == null || timeStart < 0) timeStart = nowSec - DEFAULT_OHLC_LOOKBACK_SECONDS;
+  if (timeEnd == null || timeEnd < 0) timeEnd = defaultEndSec;
+  if (timeStart == null || timeStart < 0) timeStart = timeEnd - DEFAULT_OHLC_LOOKBACK_SECONDS;
   const params = new URLSearchParams();
   params.set('resolution', resolution);
   params.set('limit', String(limit));
@@ -1550,10 +1553,11 @@ async function fetchCandlesFromMarketApi(marketAddress: string, resolution: stri
   const limit = Number(limitSelect?.value) || 1000;
   const page = pageOverride !== undefined ? pageOverride : Math.max(0, Math.trunc(Number(pageFromInput?.value || '0')));
   const nowSec = Math.floor(Date.now() / 1000);
+  const defaultEndSec = nowSec - DEFAULT_OHLC_END_BEFORE_NOW_SECONDS;
   let timeStart = parseUnixSecondsFromDatetimeLocal(timeStartInput?.value ?? '');
   let timeEnd = parseUnixSecondsFromDatetimeLocal(timeEndInput?.value ?? '');
-  if (timeEnd == null || timeEnd < 0) timeEnd = nowSec;
-  if (timeStart == null || timeStart < 0) timeStart = nowSec - DEFAULT_OHLC_LOOKBACK_SECONDS;
+  if (timeEnd == null || timeEnd < 0) timeEnd = defaultEndSec;
+  if (timeStart == null || timeStart < 0) timeStart = timeEnd - DEFAULT_OHLC_LOOKBACK_SECONDS;
   const params = new URLSearchParams();
   params.set('resolution', resolution);
   params.set('limit', String(limit));
