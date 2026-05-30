@@ -1,10 +1,21 @@
 # Solana OHLC Candlestick Data API
 
-This repository demonstrates how to use the Vybe Solana OHLC candlestick data API to fetch, display, and export Open, High, Low, Close (OHLC) candlestick data for any Token-2022 or SPL token. It includes a production-ready Node.js backend and a modern frontend that show how to integrate Vybe’s token candles, market candles, and trades endpoints to explore candlestick charts from vetted markets, rebuild OHLC from trade history, or fetch by market address, with CSV export for downstream analysis.
+<p align="center">
+
+[![OHLC guides](https://img.shields.io/badge/Guides-Fetch%20OHLC%20candles-3b82f6?style=for-the-badge)](https://docs.vybenetwork.com/docs/fetch-ohlc-candles)
+[![Token OHLC API](https://img.shields.io/badge/Endpoint-Token%20trade%20OHLC-6366f1?style=for-the-badge)](https://docs.vybenetwork.com/reference/get_token_trade_ohlc_v4)
+[![Market OHLC API](https://img.shields.io/badge/Endpoint-Market%20OHLCV-8b5cf6?style=for-the-badge)](https://docs.vybenetwork.com/reference/get_market_filtered_ohlcv_v4)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/vybenetwork/solana-ohlc-candlestick-data-api)
+[![Telegram](https://img.shields.io/badge/Telegram-VybeNetwork-26A5E4?style=for-the-badge&logo=telegram)](https://t.me/VybeNetwork_Official)
+[![X](https://img.shields.io/badge/X-Vybe__Network-000000?style=for-the-badge&logo=x)](https://x.com/Vybe_Network)
+
+</p>
+
+**Solana OHLC Candlestick Data API:** This repository demonstrates how to use the Vybe Solana OHLC candlestick data API to fetch, display, and export OHLC candlestick data for any Token-2022 or SPL token. Use this project as a reference implementation or starter kit for building Solana price charting UIs, backtesting pipelines, and on-chain analytics.
+
+It includes a production-ready Node.js backend and a modern frontend that integrate Vybe’s token candles, market candles, and trades endpoints—explore candlestick charts from vetted markets, rebuild OHLC from trade history, or fetch by market address, with CSV export for downstream analysis.
 
 Try the live demo: https://solana-ohlc-candlestick-data-api.vybenetwork.com
-
-Use this project as a reference implementation or starter kit for building Solana price charting UIs, backtesting pipelines, and on-chain candlestick data products powered by Vybe’s high-performance Solana OHLC API.
 
 ![Solana OHLC Candlestick Data API Repo](screenshots/solana-ohlc-candlestick-data-api-repo.png)
 
@@ -19,7 +30,7 @@ Use this project as a reference implementation or starter kit for building Solan
 
 **[Get your free Vybe API key →](https://vybe.fyi/api-pricing)**  
 
-**[Vybe OHLC candles docs →](https://docs.vybenetwork.com/docs/fetch-ohlc-candles)**
+**[Vybe OHLC candles guide →](https://docs.vybenetwork.com/docs/fetch-ohlc-candles)** · **[Token OHLC endpoint →](https://docs.vybenetwork.com/reference/get_token_trade_ohlc_v4)** · **[Market OHLC endpoint →](https://docs.vybenetwork.com/reference/get_market_filtered_ohlcv_v4)** · **[GitHub repo →](https://github.com/vybenetwork/solana-ohlc-candlestick-data-api)** · **[Telegram →](https://t.me/VybeNetwork_Official)** · **[X →](https://x.com/Vybe_Network)**
 
 ---
 
@@ -88,10 +99,12 @@ All of this uses Vybe’s production OHLC and trade data across Pump.fun, Raydiu
 
 ### Solana API docs for these endpoints
 
-- **Token OHLC candles (`GET /v4/tokens/{mintAddress}/candles`)**:
+- **OHLC guides (fetch OHLC candles)**:
   - [https://docs.vybenetwork.com/docs/fetch-ohlc-candles](https://docs.vybenetwork.com/docs/fetch-ohlc-candles)
+- **Token OHLC candles (`GET /v4/tokens/{mintAddress}/candles`)**:
+  - [https://docs.vybenetwork.com/reference/get_token_trade_ohlc_v4](https://docs.vybenetwork.com/reference/get_token_trade_ohlc_v4)
 - **Market OHLC (`GET /v4/markets/{marketAddress}/candles`)**:
-  - [https://docs.vybenetwork.com/docs/fetch-markets-pools](https://docs.vybenetwork.com/docs/fetch-markets-pools)
+  - [https://docs.vybenetwork.com/reference/get_market_filtered_ohlcv_v4](https://docs.vybenetwork.com/reference/get_market_filtered_ohlcv_v4)
 - **Historical Trades (`GET /v4/trades`)**:
   - [https://docs.vybenetwork.com/reference/get_trade_data_program_v4](https://docs.vybenetwork.com/reference/get_trade_data_program_v4)
 - **Token details (`GET /v4/tokens/{mintAddress}`)**:
@@ -399,5 +412,7 @@ time,time_iso,open,high,low,close,volume
 
 ## Support
 
-- **Telegram:** [Vybe community](https://t.me/vybenetwork)
+- **Telegram:** [VybeNetwork Official](https://t.me/VybeNetwork_Official)
+- **X:** [@Vybe_Network](https://x.com/Vybe_Network)
+- **GitHub:** [solana-ohlc-candlestick-data-api](https://github.com/vybenetwork/solana-ohlc-candlestick-data-api)
 - **Support ticket:** [Submit a ticket via vybenetwork.xyz](https://vybenetwork.com)

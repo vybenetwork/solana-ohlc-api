@@ -3,23 +3,106 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Solana OHLC Candlestick Data</title>
-    <link rel="stylesheet" href="app.css" />
+    <title>Solana OHLC Candlestick Data API</title>
+    <meta name="description" content="Demo for Vybe Solana OHLC candlestick API: fetch, display, and export OHLC for SPL &amp; Token-2022 tokens—price charts, backtesting and on-chain analytics kit." />
+    <meta name="keywords" content="Solana OHLC, candlestick API, Vybe API, SPL token, Token-2022, price charts, backtesting, market candles, trade history, candlestick data, Solana DEX" />
+    <meta name="author" content="Vybe Network" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0f0f12" />
+    <link rel="canonical" href="https://solana-ohlc-candlestick-data-api.vybenetwork.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Vybe Network" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://solana-ohlc-candlestick-data-api.vybenetwork.com/" />
+    <meta property="og:title" content="Solana OHLC Candlestick Data API" />
+    <meta property="og:description" content="Demo for Vybe Solana OHLC candlestick API: fetch, display, and export OHLC for SPL &amp; Token-2022 tokens—price charts, backtesting and on-chain analytics kit." />
+    <meta property="og:image" content="https://solana-ohlc-candlestick-data-api.vybenetwork.com/solana-ohlc-candlestick-data-api.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:alt" content="Solana OHLC candlestick chart demo powered by Vybe API" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@Vybe_Network" />
+    <meta name="twitter:creator" content="@Vybe_Network" />
+    <meta name="twitter:title" content="Solana OHLC Candlestick Data API" />
+    <meta name="twitter:description" content="Demo for Vybe Solana OHLC candlestick API: fetch, display, and export OHLC for SPL &amp; Token-2022 tokens—price charts, backtesting and on-chain analytics kit." />
+    <meta name="twitter:image" content="https://solana-ohlc-candlestick-data-api.vybenetwork.com/solana-ohlc-candlestick-data-api.jpg" />
+    <meta name="twitter:image:alt" content="Solana OHLC candlestick chart demo powered by Vybe API" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="app.css?v=8" />
     <script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
   </head>
   <body>
     <div class="container">
-      <header>
-        <h1>OHLC Candlestick Data</h1>
-        <p class="subtitle">Solana OHLC candles via Vybe API — token &amp; market candles, trade history, filters + CSV export</p>
+      <header class="page-masthead" aria-label="About and resources">
+        <div class="page-masthead__title-block">
+          <div class="page-masthead__eyebrow">
+            <span class="page-masthead__logo">Vybe</span>
+            <span class="page-masthead__pill">OHLC API</span>
+          </div>
+          <h1 class="page-masthead__title">
+            <span class="page-masthead__title-accent">OHLC</span> Candlestick Data
+          </h1>
+          <p class="page-masthead__description">
+            Demo for Vybe Solana OHLC candlestick API: fetch, display, and export OHLC for SPL &amp; Token-2022 tokens—price charts, backtesting and on-chain analytics kit.
+          </p>
+        </div>
+        <nav class="page-masthead__nav" aria-label="Documentation and community links">
+          <div class="page-masthead__group page-masthead__group--repo">
+            <span class="page-masthead__label">Repository</span>
+            <div class="page-masthead__btns">
+              <a class="page-masthead__btn page-masthead__btn--github" href="https://github.com/vybenetwork/solana-ohlc-candlestick-data-api" target="_blank" rel="noopener noreferrer">
+                <span class="page-masthead__btn-icon page-masthead__btn-icon--github" aria-hidden="true"></span>
+                Clone this repo
+              </a>
+            </div>
+          </div>
+          <div class="page-masthead__group">
+            <span class="page-masthead__label">Guides</span>
+            <div class="page-masthead__btns">
+              <a class="page-masthead__btn page-masthead__btn--docs" href="https://docs.vybenetwork.com/docs/fetch-ohlc-candles" target="_blank" rel="noopener noreferrer">
+                <span class="page-masthead__btn-icon page-masthead__btn-icon--docs" aria-hidden="true"></span>
+                <span class="page-masthead__btn-text"><span class="page-masthead__btn-prefix">Docs:</span> Fetch OHLC candles</span>
+              </a>
+            </div>
+          </div>
+          <div class="page-masthead__group">
+            <span class="page-masthead__label">Endpoints</span>
+            <div class="page-masthead__btns">
+              <a class="page-masthead__btn page-masthead__btn--api" href="https://docs.vybenetwork.com/reference/get_token_trade_ohlc_v4" target="_blank" rel="noopener noreferrer">
+                <span class="page-masthead__btn-icon page-masthead__btn-icon--endpoint" aria-hidden="true"></span>
+                <span class="page-masthead__btn-text"><span class="page-masthead__btn-prefix">Docs:</span> Token Trade OHLC</span>
+              </a>
+              <a class="page-masthead__btn page-masthead__btn--api" href="https://docs.vybenetwork.com/reference/get_market_filtered_ohlcv_v4" target="_blank" rel="noopener noreferrer">
+                <span class="page-masthead__btn-icon page-masthead__btn-icon--endpoint" aria-hidden="true"></span>
+                <span class="page-masthead__btn-text"><span class="page-masthead__btn-prefix">Docs:</span> Market/Pool OHLCV</span>
+              </a>
+            </div>
+          </div>
+          <div class="page-masthead__group">
+            <span class="page-masthead__label">Community</span>
+            <div class="page-masthead__btns">
+              <a class="page-masthead__btn page-masthead__btn--social" href="https://t.me/VybeNetwork_Official" target="_blank" rel="noopener noreferrer">
+                <span class="page-masthead__btn-icon page-masthead__btn-icon--telegram" aria-hidden="true"></span>
+                Telegram
+              </a>
+              <a class="page-masthead__btn page-masthead__btn--social" href="https://x.com/Vybe_Network" target="_blank" rel="noopener noreferrer">
+                <span class="page-masthead__btn-icon page-masthead__btn-icon--x" aria-hidden="true"></span>
+                X
+              </a>
+            </div>
+          </div>
+        </nav>
       </header>
 
-      <section class="inputs panel">
+      <section class="section-card section-card--remote inputs panel">
         <div class="section-header">
-          <h2>Remote filters</h2>
+          <span class="section-header__marker" aria-hidden="true"></span>
+          <h2 class="section-header__title">Remote filters</h2>
           <span class="candles-pages-progress section-header-status" id="candlesPagesProgress" aria-live="polite"></span>
         </div>
-        <p class="meta remote-filters-help">
+        <p class="section-lede meta remote-filters-help">
           <strong>Remote filters</strong> fetch trades from the Vybe API and change the dataset.
         </p>
         <div class="candles-controls candles-controls--remote">
@@ -208,9 +291,10 @@
 
       </section>
 
-      <section class="panel" id="tokenSection">
+      <section class="section-card section-card--token panel" id="tokenSection">
         <div class="section-header">
-          <h2>Token metadata</h2>
+          <span class="section-header__marker" aria-hidden="true"></span>
+          <h2 class="section-header__title">Token metadata</h2>
           <div class="section-loading" id="tokenLoading" hidden aria-hidden="true">
             <span class="loading-spinner"></span>
             <span class="loading-text">Loading…</span>
@@ -243,16 +327,17 @@
         </div>
       </section>
 
-      <section class="panel" id="candlesSection">
+      <section class="section-card section-card--chart panel" id="candlesSection">
         <div class="section-header">
-          <h2>Price candlestick chart</h2>
+          <span class="section-header__marker" aria-hidden="true"></span>
+          <h2 class="section-header__title">Price candlestick chart</h2>
           <div class="section-loading" id="candlesLoading" hidden aria-hidden="true">
             <span class="loading-spinner"></span>
             <span class="loading-text" id="candlesLoadingText">Loading…</span>
           </div>
           <span class="section-error" id="candlesError" hidden aria-hidden="true"></span>
         </div>
-        <p class="meta">
+        <p class="section-lede meta">
           Candles from Vybe OHLC API (Full), rebuilt from trades, or by market via Vybe OHLC by Market API.
         </p>
         <div class="candles-chart-wrapper">
@@ -261,9 +346,10 @@
         </div>
       </section>
 
-      <section class="panel local-filters-panel" id="perQuoteSection" hidden aria-hidden="true">
+      <section class="section-card section-card--rebuild panel local-filters-panel" id="perQuoteSection" hidden aria-hidden="true">
         <div class="section-header">
-          <h2>Rebuild from trades</h2>
+          <span class="section-header__marker" aria-hidden="true"></span>
+          <h2 class="section-header__title">Rebuild from trades</h2>
           <div class="section-loading" id="rebuildLoading" hidden aria-hidden="true">
             <span class="loading-spinner"></span>
             <span class="loading-text" id="rebuildLoadingText">Loading…</span>
@@ -363,21 +449,22 @@
             </div>
           </div>
         </div>
-        <h3 class="local-filters-subtitle">Per-quote mint (min/max size, spam filter)</h3>
-        <p class="meta">Set min/max quote size per quote token. Filled after fetch from loaded trades.</p>
+        <h3 class="section-subtitle local-filters-subtitle">Per-quote mint (min/max size, spam filter)</h3>
+        <p class="section-lede meta">Set min/max quote size per quote token. Filled after fetch from loaded trades.</p>
         <div id="perQuoteFiltersContainer" class="local-filters-dynamic"></div>
       </section>
 
-      <section class="panel">
+      <section class="section-card section-card--trades panel">
         <div class="section-header">
-          <h2>Trades</h2>
+          <span class="section-header__marker" aria-hidden="true"></span>
+          <h2 class="section-header__title">Trades</h2>
           <div class="section-loading" id="tradesLoading" hidden aria-hidden="true">
             <span class="loading-spinner"></span>
             <span class="loading-text" id="tradesLoadingText">Loading…</span>
           </div>
           <span class="section-error" id="tradesError" hidden aria-hidden="true"></span>
         </div>
-        <p class="meta" id="tradesMeta">—</p>
+        <p class="section-lede meta" id="tradesMeta">—</p>
         <div class="trades-summary-grid" id="tradesSummary" aria-live="polite">
           <div class="trades-summary-item">
             <span class="trades-summary-label">Trades loaded</span>
