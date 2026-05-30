@@ -650,8 +650,8 @@ a:hover {
 }
 
 #mintAddress {
-  max-width: 420px;
-  min-width: 420px;
+  max-width: 406px;
+  min-width: 406px;
 }
 
 .candles-mint-resolution-row {
@@ -1045,8 +1045,8 @@ button:disabled {
   box-sizing: border-box;
 }
 #candlesResolution {
-  width: 140px;
-  min-width: 140px;
+  width: 124px;
+  min-width: 124px;
   box-sizing: border-box;
 }
 .candles-pages-progress {
@@ -1795,6 +1795,7 @@ tr:hover td {
   border-radius: 8px;
   padding: 4px;
   gap: 2px;
+  min-width: 200px;
 }
 .inputs.panel .trades-fetch-switch-option {
   padding: 0.35rem 0.75rem;
