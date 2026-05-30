@@ -1795,7 +1795,7 @@ tr:hover td {
   border-radius: 8px;
   padding: 4px;
   gap: 2px;
-  min-width: 200px;
+  min-width: 204px;
 }
 .inputs.panel .trades-fetch-switch-option {
   padding: 0.35rem 0.75rem;
