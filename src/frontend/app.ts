@@ -878,36 +878,38 @@ const TOP_QUOTE_MINTS_FOR_FILTER = 10;
 /** Observed min/max from last fetch, used to lock per-quote inputs. */
 let quoteBounds: Record<string, { minQuoteSize: number; maxQuoteSize: number; minPrice: number; maxPrice: number }> = {};
 
-const PER_QUOTE_PLACEHOLDER_ROW_COUNT = 5;
+const PER_QUOTE_PLACEHOLDER_MARKET_ROW_COUNT = 5;
 
-function appendPerQuotePlaceholderRows(tbody: HTMLTableSectionElement): void {
-  for (let i = 0; i < PER_QUOTE_PLACEHOLDER_ROW_COUNT; i++) {
-    const tr = document.createElement('tr');
-    tr.className = 'per-quote-placeholder-row';
-    tr.innerHTML = `
-      <td><div>—</div><div class="meta">(—/—)</div></td>
+/** Skeleton per-quote table (quote row + market sub-rows) before trades are loaded. */
+function buildPerQuotePlaceholderTable(): void {
+  if (!perQuoteFiltersContainer) return;
+  const placeholderQuoteMint = getSelectedChartQuoteMint();
+  const placeholderLabel =
+    CHART_QUOTE_OPTIONS.find((o) => o.mint === placeholderQuoteMint)?.label ??
+    HARDCODED_QUOTE_MINTS[placeholderQuoteMint] ??
+    truncate(placeholderQuoteMint, 4, 4);
+  const marketRows = Array.from({ length: PER_QUOTE_PLACEHOLDER_MARKET_ROW_COUNT }, () => `
+    <tr class="per-quote-market-row per-quote-placeholder-row">
+      <td class="per-quote-market-cell"><span class="per-quote-market-indent"></span>—</td>
+      <td class="per-quote-market-status-cell" style="text-align:center">—</td>
+      <td class="per-quote-wick-cell per-quote-score-cell">—</td>
+      <td class="per-quote-market-details">—</td>
+      <td class="per-quote-market-details">—</td>
+      <td class="per-quote-market-details">—</td>
+      <td class="per-quote-market-details">—</td>
+    </tr>`).join('');
+  perQuoteFiltersContainer.innerHTML = `<table class="per-quote-table per-quote-table--placeholder"><thead><tr><th>Quote</th><th style="text-align:center">Select All</th><th>Score</th><th>High</th><th>Low</th><th>Min price</th><th>Max price</th></tr></thead><tbody>
+    <tr class="per-quote-placeholder-row" data-quote-mint="${escapeHtml(placeholderQuoteMint)}">
+      <td title="${escapeHtml(placeholderQuoteMint)}"><div>${escapeHtml(placeholderLabel)}</div><div class="meta">(—/—)</div></td>
       <td style="text-align:center"><label class="per-quote-status"><input type="checkbox" class="per-quote-exclude" disabled tabindex="-1" aria-hidden="true" /><span class="per-quote-status-text">—</span></label></td>
       <td class="per-quote-main-wick-cell">—</td>
       <td class="per-quote-main-price-cell">—</td>
       <td class="per-quote-main-price-cell">—</td>
       <td class="per-quote-main-price-cell">—</td>
       <td class="per-quote-main-price-cell">—</td>
-    `;
-    tbody.appendChild(tr);
-  }
-  const buttonRow = document.createElement('tr');
-  buttonRow.className = 'per-quote-show-all-row';
-  const td = document.createElement('td');
-  td.colSpan = 6;
-  td.style.textAlign = 'center';
-  const btn = document.createElement('button');
-  btn.type = 'button';
-  btn.className = 'per-quote-show-all-btn';
-  btn.disabled = true;
-  btn.textContent = 'Show all (— total)';
-  td.appendChild(btn);
-  buttonRow.appendChild(td);
-  tbody.appendChild(buttonRow);
+    </tr>
+    ${marketRows}
+  </tbody></table>`;
 }
 
 /**
@@ -1129,15 +1131,14 @@ function buildLocalFilterRows(remoteTradesOverride?: VybeTrade[]): void {
     };
   }
 
+  if (topQuotesForTable.length === 0 || hasNoTradesYet) {
+    buildPerQuotePlaceholderTable();
+    return;
+  }
+
   perQuoteFiltersContainer.innerHTML = '';
   const table = document.createElement('table');
   table.innerHTML = `<thead><tr><th>Quote</th><th style="text-align:center">Select All</th><th>Score</th><th>High</th><th>Low</th><th>Min price</th><th>Max price</th></tr></thead><tbody></tbody>`;
-  if (topQuotesForTable.length === 0 || hasNoTradesYet) {
-    const tbody = table.querySelector('tbody')!;
-    appendPerQuotePlaceholderRows(tbody);
-    perQuoteFiltersContainer.appendChild(table);
-    return;
-  }
   {
     const tbody = table.querySelector('tbody')!;
     const TOP_VISIBLE = 100000; /* show all quote rows and market sub-rows */
@@ -2423,7 +2424,7 @@ async function onFetch(): Promise<void> {
   clearInlineError(tokenError);
   // Clear tables immediately so the user sees we're refetching.
   renderTrades([], { remoteCount: 0, filteredCount: 0, query: '' });
-  perQuoteFiltersContainer.innerHTML = '';
+  buildPerQuotePlaceholderTable();
   // When rebuilding from trades with filter wicks on, clear chart so we never show stale or partial unfiltered wicks during fetch.
   if (candlesSourceSelect?.value === 'trades' && filterWicksCheckbox?.checked && candlesChartEl) {
     renderCandles([]);
@@ -2874,6 +2875,7 @@ if (chartQuoteSelect) {
 // Initial empty state
 renderTrades([], { remoteCount: 0, filteredCount: 0, query: '' });
 renderTokenEmpty();
+buildPerQuotePlaceholderTable();
 clearError();
 updateFetchButtonLabel();
 

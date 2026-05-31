@@ -2636,10 +2636,6 @@ tr:hover td {
   color: #52525b;
 }
 
-.local-filters-dynamic tbody tr.per-quote-placeholder-row {
-  height: 31px;
-}
-
 .local-filters-dynamic tbody tr.per-quote-placeholder-row td {
   height: 31px;
   max-height: 31px;
@@ -2647,9 +2643,9 @@ tr:hover td {
   vertical-align: middle;
 }
 
-.local-filters-dynamic .per-quote-show-all-btn:disabled {
-  opacity: 0.85;
-  cursor: default;
+.local-filters-dynamic .per-quote-table--placeholder .per-quote-exclude,
+.local-filters-dynamic .per-quote-table--placeholder .per-quote-exclude-market {
+  pointer-events: none;
 }
 
 .local-filters-dynamic .per-quote-show-all-row td {
