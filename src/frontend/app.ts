@@ -126,7 +126,7 @@ const tradesBody = document.getElementById('tradesBody') as HTMLElement;
 const tradesTable = document.getElementById('tradesTable') as HTMLTableElement | null;
 
 /** Empty trades table skeleton (stable layout before fetch). */
-const TRADES_PLACEHOLDER_ROW_COUNT = 12;
+const TRADES_PLACEHOLDER_ROW_COUNT = 20;
 
 const TRADES_PLACEHOLDER_ROW_HTML =
   '<tr class="trades-placeholder-row"><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="authority-fee-payer-single">—</td><td>—</td></tr>';
@@ -630,7 +630,7 @@ function formatTimeParts(blockTime: number | undefined): { time: string; date: s
     second: '2-digit',
     hour12: true,
   });
-  const weekday = d.toLocaleString('en-US', { weekday: 'long' });
+  const weekday = d.toLocaleString('en-US', { weekday: 'short' }).replace(/\.$/, '');
   const month = d.toLocaleString('en-US', { month: 'short' });
   const day = d.getDate();
   const year = d.getFullYear();

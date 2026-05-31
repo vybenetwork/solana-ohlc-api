@@ -1516,6 +1516,12 @@ button:disabled {
   border-bottom: 1px solid #3f3f46;
 }
 
+#tradesTable thead th .trades-th-fee-payer-label {
+  font-size: 0.75em;
+  color: #facc15;
+  font-weight: 500;
+}
+
 #tradesTable td {
   padding: 0.25rem 0.26rem;
   font-size: calc(0.66rem * 1.15);
@@ -1544,8 +1550,8 @@ button:disabled {
 
 #tradesTable th:nth-child(1),
 #tradesTable td:nth-child(1) {
-  width: 180px;
-  max-width: 180px;
+  width: 170px;
+  max-width: 170px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -1699,6 +1705,18 @@ button:disabled {
   text-align: center;
 }
 
+#tradesTable:not(.trades-table--placeholder) th:nth-child(6),
+#tradesTable:not(.trades-table--placeholder) th:nth-child(7),
+#tradesTable:not(.trades-table--placeholder) th:nth-child(8) {
+  text-align: left;
+}
+
+#tradesTable tbody tr:not(.trades-placeholder-row) td:nth-child(6),
+#tradesTable tbody tr:not(.trades-placeholder-row) td:nth-child(7),
+#tradesTable tbody tr:not(.trades-placeholder-row) td:nth-child(8) {
+  text-align: left;
+}
+
 #tradesTable th:nth-child(6),
 #tradesTable td:nth-child(6) {
   width: 120px;
@@ -1743,12 +1761,17 @@ button:disabled {
 #tradesTable th:nth-child(9),
 #tradesTable td:nth-child(9) { width: 24px; max-width: 24px; min-width: 24px; }
 #tradesTable .fee-payer-cell {
-  font-size: 6pt;
+  font-size: 5pt;
   color: #facc15;
-  line-height: 1.15;
+  line-height: 1.1;
   display: block;
 }
-#tradesTable .fee-payer-cell a { color: #facc15; }
+
+#tradesTable .fee-payer-cell a,
+#tradesTable .fee-payer-cell .holder-label {
+  color: #facc15;
+  font-size: inherit;
+}
 #tradesTable .holder-label { color: #94a3b8; font-size: 8pt; margin-right: 2px; }
 #tradesTable .amount-usdc { color: #86efac; }
 #tradesTable .amount-sol { color: #c4b5fd; }
