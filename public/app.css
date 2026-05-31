@@ -442,6 +442,28 @@ a:hover {
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M23 6l-9.5 9.5-5-5L1 18'/%3E%3Cpath d='M17 6h6v6'/%3E%3C/svg%3E");
 }
 
+.page-masthead__nav-row--secondary-endpoints {
+  width: 100%;
+  padding-top: 0.35rem;
+}
+
+.page-masthead__group--secondary-endpoints {
+  width: 100%;
+}
+
+.page-masthead__btns--secondary-endpoints {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.page-masthead__btns--secondary-endpoints .page-masthead__btn {
+  flex: 1 1 12rem;
+  min-width: 0;
+  max-width: 100%;
+}
+
 .page-masthead__nav-row--related {
   width: 100%;
   padding-top: 0.2rem;
@@ -1751,6 +1773,58 @@ button:disabled {
   color: #ef4444;
 }
 
+#tradesTable th:nth-child(3),
+#tradesTable td:nth-child(3) {
+  width: 38px;
+  max-width: 38px;
+}
+
+.trade-volume-bars {
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2px;
+  height: 14px;
+  vertical-align: middle;
+}
+
+.trade-volume-bar {
+  display: block;
+  width: 3px;
+  border-radius: 1px;
+  background: #3f3f46;
+}
+
+.trade-volume-bar:nth-child(1) { height: 4px; }
+.trade-volume-bar:nth-child(2) { height: 6px; }
+.trade-volume-bar:nth-child(3) { height: 8px; }
+.trade-volume-bar:nth-child(4) { height: 10px; }
+.trade-volume-bar:nth-child(5) { height: 12px; }
+
+.trade-volume-bars--buy .trade-volume-bar--active {
+  background: #22c55e;
+}
+
+.trade-volume-bars--sell .trade-volume-bar--active {
+  background: #ef4444;
+}
+
+.trades-cell-with-volume {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+.trades-cell-with-volume__main {
+  min-width: 0;
+}
+
+.trades-cell-with-volume__bars {
+  flex-shrink: 0;
+}
+
 #tradesTable .market-pool-chip {
   display: inline-flex;
   align-items: center;
@@ -1805,13 +1879,6 @@ button:disabled {
   text-overflow: ellipsis;
 }
 
-#tradesTable th:nth-child(3),
-#tradesTable td:nth-child(3) {
-  width: 90px;
-  max-width: 90px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 #tradesTable th:nth-child(4),
 #tradesTable td:nth-child(4) {
   width: 90px;
@@ -1826,22 +1893,29 @@ button:disabled {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+#tradesTable th:nth-child(6),
+#tradesTable td:nth-child(6) {
+  width: 90px;
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-#tradesTable th:nth-child(3),
 #tradesTable th:nth-child(4),
-#tradesTable th:nth-child(5) {
+#tradesTable th:nth-child(5),
+#tradesTable th:nth-child(6) {
   text-align: left;
 }
 
-#tradesTable.trades-table--placeholder th:nth-child(3),
 #tradesTable.trades-table--placeholder th:nth-child(4),
-#tradesTable.trades-table--placeholder th:nth-child(5) {
+#tradesTable.trades-table--placeholder th:nth-child(5),
+#tradesTable.trades-table--placeholder th:nth-child(6) {
   text-align: center;
 }
 
-#tradesTable tbody tr:not(.trades-placeholder-row) td:nth-child(3),
 #tradesTable tbody tr:not(.trades-placeholder-row) td:nth-child(4),
-#tradesTable tbody tr:not(.trades-placeholder-row) td:nth-child(5) {
+#tradesTable tbody tr:not(.trades-placeholder-row) td:nth-child(5),
+#tradesTable tbody tr:not(.trades-placeholder-row) td:nth-child(6) {
   text-align: left;
 }
 
@@ -1853,42 +1927,42 @@ button:disabled {
   text-align: center;
 }
 
-#tradesTable:not(.trades-table--placeholder) th:nth-child(6),
 #tradesTable:not(.trades-table--placeholder) th:nth-child(7),
-#tradesTable:not(.trades-table--placeholder) th:nth-child(8) {
+#tradesTable:not(.trades-table--placeholder) th:nth-child(8),
+#tradesTable:not(.trades-table--placeholder) th:nth-child(9) {
   text-align: left;
 }
 
-#tradesTable tbody tr:not(.trades-placeholder-row) td:nth-child(6),
 #tradesTable tbody tr:not(.trades-placeholder-row) td:nth-child(7),
-#tradesTable tbody tr:not(.trades-placeholder-row) td:nth-child(8) {
+#tradesTable tbody tr:not(.trades-placeholder-row) td:nth-child(8),
+#tradesTable tbody tr:not(.trades-placeholder-row) td:nth-child(9) {
   text-align: left;
 }
 
-#tradesTable th:nth-child(6),
-#tradesTable td:nth-child(6) {
-  width: 120px;
-  max-width: 120px;
+#tradesTable th:nth-child(7),
+#tradesTable td:nth-child(7) {
+  width: 138px;
+  max-width: 138px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-#tradesTable th:nth-child(7),
-#tradesTable td:nth-child(7) {
-  width: 100px;
-  max-width: 100px;
+#tradesTable th:nth-child(8),
+#tradesTable td:nth-child(8) {
+  width: 118px;
+  max-width: 118px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
 }
-#tradesTable th:nth-child(8),
-#tradesTable td:nth-child(8) {
+#tradesTable th:nth-child(9),
+#tradesTable td:nth-child(9) {
   width: 90px;
   max-width: 90px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
 }
-#tradesTable td:nth-child(8).authority-fee-payer-double {
+#tradesTable td:nth-child(9).authority-fee-payer-double {
   padding-top: 0.15rem;
   padding-bottom: 0.15rem;
   vertical-align: middle;
@@ -1901,13 +1975,13 @@ button:disabled {
   max-width: 100%;
 }
 
-#tradesTable td:nth-child(8).authority-fee-payer-single {
+#tradesTable td:nth-child(9).authority-fee-payer-single {
   padding-top: 0.2rem;
   padding-bottom: 0.2rem;
   vertical-align: middle;
 }
-#tradesTable th:nth-child(9),
-#tradesTable td:nth-child(9) { width: 24px; max-width: 24px; min-width: 24px; }
+#tradesTable th:nth-child(10),
+#tradesTable td:nth-child(10) { width: 24px; max-width: 24px; min-width: 24px; }
 #tradesTable .fee-payer-cell {
   font-size: 5pt;
   color: #facc15;

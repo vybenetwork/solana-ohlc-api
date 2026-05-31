@@ -129,7 +129,7 @@ const tradesTable = document.getElementById('tradesTable') as HTMLTableElement |
 const TRADES_PLACEHOLDER_ROW_COUNT = 20;
 
 const TRADES_PLACEHOLDER_ROW_HTML =
-  '<tr class="trades-placeholder-row"><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="authority-fee-payer-single">—</td><td>—</td></tr>';
+  '<tr class="trades-placeholder-row"><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="authority-fee-payer-single">—</td><td>—</td></tr>';
 
 function buildTradesPlaceholderRowsHtml(): string {
   return Array.from({ length: TRADES_PLACEHOLDER_ROW_COUNT }, () => TRADES_PLACEHOLDER_ROW_HTML).join('');
@@ -542,6 +542,134 @@ function renderTradeTypeChip(type: string): string {
     return '<span class="trade-type-chip trade-type-chip--sell"><span class="trade-type-side-icon trade-type-side-icon--sell" aria-hidden="true">▼</span>SELL</span>';
   }
   return type === '—' || !type ? '—' : escapeHtml(type);
+}
+
+/** Analysed-token amount from input (base) or output (quote), whichever side matches the mint. */
+function getAnalysedTokenAmount(t: VybeTrade, analysedMint: string): number | null {
+  if (!analysedMint) return null;
+  const baseMint = (t.baseMintAddress ?? '').trim();
+  const quoteMint = (t.quoteMintAddress ?? '').trim();
+  if (baseMint === analysedMint) {
+    const n = Number(t.baseSize);
+    return Number.isFinite(n) && n >= 0 ? n : null;
+  }
+  if (quoteMint === analysedMint) {
+    const n = Number(t.quoteSize);
+    return Number.isFinite(n) && n >= 0 ? n : null;
+  }
+  return null;
+}
+
+function computeAnalysedTokenVolumeRange(
+  trades: VybeTrade[],
+  analysedMint: string
+): { min: number; max: number } | null {
+  let min = Infinity;
+  let max = -Infinity;
+  let has = false;
+  for (const t of trades) {
+    const amt = getAnalysedTokenAmount(t, analysedMint);
+    if (amt == null) continue;
+    has = true;
+    if (amt < min) min = amt;
+    if (amt > max) max = amt;
+  }
+  return has ? { min, max } : null;
+}
+
+function volumePercentileFromAmount(amount: number, min: number, max: number): number {
+  if (max <= min) return 100;
+  return ((amount - min) / (max - min)) * 100;
+}
+
+/** Trade count per entity (pool, DEX, etc.) in the loaded set. */
+function computeEntityTradeCounts(
+  trades: VybeTrade[],
+  getKey: (t: VybeTrade) => string
+): Map<string, number> {
+  const counts = new Map<string, number>();
+  for (const t of trades) {
+    const key = getKey(t);
+    if (!key) continue;
+    counts.set(key, (counts.get(key) ?? 0) + 1);
+  }
+  return counts;
+}
+
+function minMaxFromEntityCounts(counts: Map<string, number>): { min: number; max: number } | null {
+  if (counts.size === 0) return null;
+  let min = Infinity;
+  let max = -Infinity;
+  for (const c of counts.values()) {
+    if (c < min) min = c;
+    if (c > max) max = c;
+  }
+  return { min, max };
+}
+
+/** 1 bar = 0–20%, …, 5 bars = 80–100% of analysed-token amount in the loaded set. */
+function volumeBarsFromPercentile(percentile: number): number {
+  if (percentile >= 80) return 5;
+  if (percentile >= 60) return 4;
+  if (percentile >= 40) return 3;
+  if (percentile >= 20) return 2;
+  return 1;
+}
+
+const VOLUME_BAR_TIER_LABELS = ['0–20%', '20–40%', '40–60%', '60–80%', '80–100%'] as const;
+
+function renderTradeVolumeBars(type: string, bars: number, labelPrefix = 'Volume'): string {
+  const norm = type.trim().toLowerCase();
+  if (norm !== 'buy' && norm !== 'sell') return '';
+  if (bars < 1 || bars > 5) return '';
+  const tone = norm === 'buy' ? 'trade-volume-bars--buy' : 'trade-volume-bars--sell';
+  const tierLabel = VOLUME_BAR_TIER_LABELS[bars - 1];
+  const barHtml = Array.from({ length: 5 }, (_, i) =>
+    `<span class="trade-volume-bar${i < bars ? ' trade-volume-bar--active' : ''}"></span>`
+  ).join('');
+  return `<span class="trade-volume-bars ${tone}" aria-label="${labelPrefix} ${tierLabel}" title="${labelPrefix} ${tierLabel}">${barHtml}</span>`;
+}
+
+function renderColoredVolumeBars(bars: number, activeColor: string, labelPrefix = 'Volume'): string {
+  if (bars < 1 || bars > 5) return '';
+  const tierLabel = VOLUME_BAR_TIER_LABELS[bars - 1];
+  const barHtml = Array.from({ length: 5 }, (_, i) => {
+    const active = i < bars;
+    const style = active ? ` style="background:${activeColor}"` : '';
+    return `<span class="trade-volume-bar${active ? ' trade-volume-bar--active' : ''}"${style}></span>`;
+  }).join('');
+  return `<span class="trade-volume-bars" aria-label="${labelPrefix} ${tierLabel}" title="${labelPrefix} ${tierLabel}">${barHtml}</span>`;
+}
+
+const MARKET_TONE_BAR_COLORS: Record<string, string> = {
+  'amount-usdc': '#86efac',
+  'amount-sol': '#c4b5fd',
+  'market-other-yellow': '#facc15',
+  'market-pool-chip--neutral': '#a1a1aa',
+};
+
+function marketToneClassToBarColor(toneClass: string): string {
+  return MARKET_TONE_BAR_COLORS[toneClass] ?? '#a1a1aa';
+}
+
+function renderScopedFrequencyBars(
+  entityKey: string | undefined,
+  entityCounts: Map<string, number>,
+  countRange: { min: number; max: number } | null,
+  labelPrefix: string,
+  activeColor: string
+): string {
+  if (!entityKey || !countRange) return '';
+  const count = entityCounts.get(entityKey);
+  if (count == null || count === 0) return '';
+  const pct = volumePercentileFromAmount(count, countRange.min, countRange.max);
+  return renderColoredVolumeBars(volumeBarsFromPercentile(pct), activeColor, labelPrefix);
+}
+
+function wrapCellWithVolumeBars(mainHtml: string, barsHtml: string): string {
+  if (!mainHtml || mainHtml === '—') return mainHtml || '—';
+  if (!barsHtml) return mainHtml;
+  return `<span class="trades-cell-with-volume"><span class="trades-cell-with-volume__main">${mainHtml}</span><span class="trades-cell-with-volume__bars">${barsHtml}</span></span>`;
 }
 
 /** Outlined pool symbol chip in market column (stables / SOL / other colours unchanged). */
@@ -2238,6 +2366,10 @@ function renderTrades(trades: VybeTrade[], meta: { remoteCount: number; filtered
   updateTradesSummary(trades, meta);
   tradesTable?.classList.toggle('trades-table--placeholder', trades.length === 0);
   const programColorMap = buildProgramGroupColorMap(trades);
+  const analysedMint = mintAddressInput.value.trim();
+  const volumeRange = computeAnalysedTokenVolumeRange(trades, analysedMint);
+  const marketCounts = computeEntityTradeCounts(trades, (t) => (t.marketAddress ?? '').trim());
+  const marketCountRange = minMaxFromEntityCounts(marketCounts);
 
   tradesBody.innerHTML = trades.length
     ? trades
@@ -2245,7 +2377,6 @@ function renderTrades(trades: VybeTrade[], meta: { remoteCount: number; filtered
           const time = formatTimeCellHtml(t.blockTime);
           const inputSym = quoteSymOrTrunc(t.baseMintAddress);
           const outputSym = quoteSymOrTrunc(t.quoteMintAddress);
-          const analysedMint = mintAddressInput.value.trim();
           const baseMint = (t.baseMintAddress ?? '').trim();
           const quoteMint = (t.quoteMintAddress ?? '').trim();
 
@@ -2273,6 +2404,13 @@ function renderTrades(trades: VybeTrade[], meta: { remoteCount: number; filtered
           const price = priceSym ? wrapAmountClass(priceRaw, priceSym, priceIsAnalysedMint) : priceRaw;
 
           const type = !analysedMint ? '—' : baseMint === analysedMint ? 'Sell' : quoteMint === analysedMint ? 'Buy' : '—';
+          const tokenAmt = getAnalysedTokenAmount(t, analysedMint);
+
+          let volumeCell = '—';
+          if (volumeRange && (type === 'Buy' || type === 'Sell') && tokenAmt != null) {
+            const pct = volumePercentileFromAmount(tokenAmt, volumeRange.min, volumeRange.max);
+            volumeCell = renderTradeVolumeBars(type, volumeBarsFromPercentile(pct)) || '—';
+          }
 
           const inputSymD = symbolMax5(displaySymbol(inputSym));
           const inputAmountRaw = t.baseSize != null ? `${fmtTokenAmount(t.baseSize)} ${inputSymD}` : '—';
@@ -2309,9 +2447,18 @@ function renderTrades(trades: VybeTrade[], meta: { remoteCount: number; filtered
                   : 'market-other-yellow'
               : '';
           const marketPoolChip = renderMarketPoolChip(otherSymbol, marketOtherClass);
-          const market = t.marketAddress
-            ? `<a href="${SOLSCAN_ACCOUNT}${encodeURIComponent(t.marketAddress)}" target="_blank" title="${t.marketAddress}">${truncate(t.marketAddress, 4, 4)}${marketPoolChip ? ` ${marketPoolChip}` : ''}</a>`
-            : '—';
+          const marketKey = (t.marketAddress ?? '').trim();
+          const marketMain = marketKey
+            ? `<a href="${SOLSCAN_ACCOUNT}${encodeURIComponent(marketKey)}" target="_blank" title="${marketKey}">${truncate(marketKey, 4, 4)}${marketPoolChip ? ` ${marketPoolChip}` : ''}</a>`
+            : '';
+          const marketBars = renderScopedFrequencyBars(
+            marketKey,
+            marketCounts,
+            marketCountRange,
+            'Pool frequency',
+            marketToneClassToBarColor(marketOtherClass || 'market-pool-chip--neutral')
+          );
+          const market = marketMain ? wrapCellWithVolumeBars(marketMain, marketBars) : '—';
           const program = renderProgramDexChip(t.programAddress, programColorMap);
           const authority = (t.authorityAddress ?? '').trim();
           const feePayer = (t.feePayerAddress ?? '').trim();
@@ -2339,6 +2486,7 @@ function renderTrades(trades: VybeTrade[], meta: { remoteCount: number; filtered
           return `<tr>
             <td>${time}</td>
             <td>${renderTradeTypeChip(type)}</td>
+            <td>${volumeCell}</td>
             <td>${price}</td>
             <td>${inputAmount}</td>
             <td>${outputAmount}</td>

@@ -25,7 +25,7 @@ const client = createClient(apiKey);
 
 app.use(express.json());
 
-const SOCIAL_IMAGE = path.join(PUBLIC_DIR, 'og.jpg');
+const SOCIAL_IMAGE = path.join(PUBLIC_DIR, 'solana-ohlc-candlestick-data-api.jpg');
 for (const socialImagePath of ['/og.jpg', '/solana-ohlc-candlestick-data-api.jpg']) {
   app.get(socialImagePath, (_req, res) => {
     res.setHeader('Cache-Control', 'public, max-age=86400');
