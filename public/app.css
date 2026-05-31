@@ -906,6 +906,16 @@ a:hover {
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
+.field-icon.icon-pool::after {
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M8.5 10a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm9 2a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-4.5 9a6 6 0 0 1 0-12 6 6 0 0 1 0 12Z'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M8.5 10a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm9 2a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-4.5 9a6 6 0 0 1 0-12 6 6 0 0 1 0 12Z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.field-icon.icon-coins::after {
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 3C7.6 3 4 4.8 4 7s3.6 4 8 4 8-1.8 8-4-3.6-4-8-4Zm0 14c-4.4 0-8 1.8-8 4s3.6 4 8 4 8-1.8 8-4-3.6-4-8-4Z'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 3C7.6 3 4 4.8 4 7s3.6 4 8 4 8-1.8 8-4-3.6-4-8-4Zm0 14c-4.4 0-8 1.8-8 4s3.6 4 8 4 8-1.8 8-4-3.6-4-8-4Z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
 .field input,
 .field select {
   padding-left: 34px;
@@ -1840,11 +1850,49 @@ button:disabled {
 }
 
 .trades-summary-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   font-size: 0.65rem;
   font-weight: 650;
   letter-spacing: 0.07em;
   text-transform: uppercase;
   color: #71717a;
+}
+
+.trades-summary-label .field-icon {
+  position: relative;
+  left: auto;
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  opacity: 1;
+  background: transparent;
+  border-radius: 0;
+}
+
+.trades-summary-label .field-icon::after {
+  background: #71717a;
+}
+
+.trades-summary-item--count .trades-summary-label .field-icon::after {
+  background: #60a5fa;
+}
+
+.trades-summary-item--programs .trades-summary-label .field-icon::after {
+  background: #a78bfa;
+}
+
+.trades-summary-item--markets .trades-summary-label .field-icon::after {
+  background: #fbbf24;
+}
+
+.trades-summary-item--quotes .trades-summary-label .field-icon::after {
+  background: #2dd4bf;
+}
+
+.trades-summary-item--range .trades-summary-label .field-icon::after {
+  background: #38bdf8;
 }
 
 .trades-summary-value {
