@@ -1350,8 +1350,22 @@ button:disabled {
   width: 13%;
 }
 
+.summary-box .summary-mini-table--programs {
+  table-layout: fixed;
+  width: 100%;
+}
+
 .summary-box .summary-mini-table--programs col.summary-col-count {
-  width: 28%;
+  width: 86px !important;
+  min-width: 86px !important;
+}
+
+.summary-box .summary-mini-table--programs thead th:nth-child(4),
+.summary-box .summary-mini-table--programs tbody td.summary-cell-count {
+  width: 86px !important;
+  min-width: 86px !important;
+  max-width: 86px !important;
+  box-sizing: border-box;
 }
 
 .summary-box .summary-mini-table--markets {
@@ -1360,7 +1374,7 @@ button:disabled {
 }
 
 .summary-box .summary-mini-table--markets col.summary-col-market {
-  width: 84px !important;
+  width: 75px !important;
 }
 
 .summary-box .summary-mini-table--markets col.summary-col-program {
@@ -1373,15 +1387,15 @@ button:disabled {
 }
 
 .summary-box .summary-mini-table--markets col.summary-col-count {
-  width: 76px !important;
-  min-width: 76px !important;
+  width: 86px !important;
+  min-width: 86px !important;
 }
 
 .summary-box .summary-mini-table--markets thead th:nth-child(4),
 .summary-box .summary-mini-table--markets tbody td.summary-cell-count {
-  width: 76px !important;
-  min-width: 76px !important;
-  max-width: 76px !important;
+  width: 86px !important;
+  min-width: 86px !important;
+  max-width: 86px !important;
   box-sizing: border-box;
 }
 
@@ -1409,19 +1423,21 @@ button:disabled {
 
 .summary-box .summary-mini-table--markets thead th:first-child,
 .summary-box .summary-mini-table--markets tbody td.summary-cell-market {
-  width: 84px !important;
-  max-width: 84px !important;
+  width: 75px !important;
+  max-width: 75px !important;
   min-width: 0 !important;
   box-sizing: border-box;
   overflow: hidden;
-  font-size: calc(0.66rem * 1.15 * 0.92);
 }
 
 .summary-box .summary-mini-table--markets .summary-cell-market .market-cell-link {
-  display: block;
+  display: inline-flex;
+  align-items: center;
   min-width: 0;
   max-width: 100%;
   overflow: hidden;
+  text-decoration: none;
+  color: inherit;
 }
 
 .summary-box .summary-mini-table--markets .summary-cell-market .market-address-label {
@@ -1431,7 +1447,10 @@ button:disabled {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: calc(0.58rem * 1.15 * 0.92);
+  font-size: calc(0.58rem * 1.15 * 0.88);
+  font-weight: 600;
+  border: none;
+  padding: 0;
 }
 
 .summary-box .summary-mini-table--quotes col.summary-col-symbol {
@@ -1446,8 +1465,22 @@ button:disabled {
   width: 12%;
 }
 
+.summary-box .summary-mini-table--quotes {
+  table-layout: fixed;
+  width: 100%;
+}
+
 .summary-box .summary-mini-table--quotes col.summary-col-count {
-  width: 27%;
+  width: 86px !important;
+  min-width: 86px !important;
+}
+
+.summary-box .summary-mini-table--quotes thead th:nth-child(4),
+.summary-box .summary-mini-table--quotes tbody td.summary-cell-count {
+  width: 86px !important;
+  min-width: 86px !important;
+  max-width: 86px !important;
+  box-sizing: border-box;
 }
 
 .summary-box .summary-mini-table thead th:nth-child(2),
@@ -1634,7 +1667,7 @@ button:disabled {
   border-radius: 4px;
   border: 1px solid currentColor;
   font-weight: 600;
-  font-size: calc(0.58rem * 1.15);
+  font-size: 0.58rem;
   letter-spacing: 0.02em;
   line-height: 1.2;
   white-space: nowrap;
@@ -1651,7 +1684,7 @@ button:disabled {
   border-radius: 4px;
   border: 1px solid currentColor;
   font-weight: 600;
-  font-size: calc(0.58rem * 1.15);
+  font-size: 0.58rem;
   letter-spacing: 0.02em;
   line-height: 1.2;
   vertical-align: middle;
@@ -1671,6 +1704,22 @@ button:disabled {
 }
 
 .summary-box .summary-mini-table .market-pool-chip.market-pool-chip--neutral {
+  color: #a1a1aa;
+}
+
+.summary-box .summary-mini-table .market-address-label.amount-usdc {
+  color: #86efac;
+}
+
+.summary-box .summary-mini-table .market-address-label.amount-sol {
+  color: #c4b5fd;
+}
+
+.summary-box .summary-mini-table .market-address-label.market-other-yellow {
+  color: #facc15;
+}
+
+.summary-box .summary-mini-table .market-address-label.market-pool-chip--neutral {
   color: #a1a1aa;
 }
 
