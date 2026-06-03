@@ -1925,6 +1925,24 @@ button:disabled {
   text-overflow: ellipsis;
 }
 
+#tradesTable thead th:nth-child(4),
+#tradesTable thead th:nth-child(5),
+#tradesTable thead th:nth-child(6),
+#tradesTable thead th:nth-child(7) {
+  font-size: calc(0.56rem * 1.15 - 1pt);
+}
+
+#tradesTable tbody td:nth-child(4),
+#tradesTable tbody td:nth-child(5),
+#tradesTable tbody td:nth-child(6),
+#tradesTable tbody td:nth-child(7) {
+  font-size: calc(0.66rem * 1.15 - 1pt);
+}
+
+#tradesTable tbody td:nth-child(7) .market-pool-chip {
+  font-size: calc(0.52rem - 1pt);
+}
+
 #tradesTable th:nth-child(4),
 #tradesTable td:nth-child(4) {
   width: 90px;
