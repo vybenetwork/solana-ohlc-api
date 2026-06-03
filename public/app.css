@@ -1356,15 +1356,15 @@ button:disabled {
 }
 
 .summary-box .summary-mini-table--programs col.summary-col-count {
-  width: 86px !important;
-  min-width: 86px !important;
+  width: 94px !important;
+  min-width: 94px !important;
 }
 
 .summary-box .summary-mini-table--programs thead th:nth-child(4),
 .summary-box .summary-mini-table--programs tbody td.summary-cell-count {
-  width: 86px !important;
-  min-width: 86px !important;
-  max-width: 86px !important;
+  width: 94px !important;
+  min-width: 94px !important;
+  max-width: 94px !important;
   box-sizing: border-box;
 }
 
@@ -1387,15 +1387,15 @@ button:disabled {
 }
 
 .summary-box .summary-mini-table--markets col.summary-col-count {
-  width: 86px !important;
-  min-width: 86px !important;
+  width: 94px !important;
+  min-width: 94px !important;
 }
 
 .summary-box .summary-mini-table--markets thead th:nth-child(4),
 .summary-box .summary-mini-table--markets tbody td.summary-cell-count {
-  width: 86px !important;
-  min-width: 86px !important;
-  max-width: 86px !important;
+  width: 94px !important;
+  min-width: 94px !important;
+  max-width: 94px !important;
   box-sizing: border-box;
 }
 
@@ -1458,11 +1458,48 @@ button:disabled {
 }
 
 .summary-box .summary-mini-table--quotes col.summary-col-mint {
-  width: 41%;
+  width: 86px !important;
+  min-width: 86px !important;
+}
+
+.summary-box .summary-mini-table--quotes thead th:nth-child(2),
+.summary-box .summary-mini-table--quotes tbody td.summary-cell-mint {
+  width: 86px !important;
+  min-width: 86px !important;
+  max-width: 86px !important;
+  box-sizing: border-box;
+  overflow: hidden;
+  font-size: calc(0.58rem * 1.15 * 0.88);
+}
+
+.summary-box .summary-mini-table--quotes tbody td.summary-cell-mint .market-address-label {
+  font-size: calc(0.58rem * 1.15 * 0.88);
 }
 
 .summary-box .summary-mini-table--quotes col.summary-col-markets-stat {
-  width: 12%;
+  width: 45px !important;
+  min-width: 45px !important;
+}
+
+.summary-box .summary-mini-table--quotes col.summary-col-programs-stat {
+  width: 55px !important;
+  min-width: 55px !important;
+}
+
+.summary-box .summary-mini-table--quotes thead th:nth-child(3),
+.summary-box .summary-mini-table--quotes tbody td:nth-child(3).summary-cell-stat {
+  width: 45px !important;
+  min-width: 45px !important;
+  max-width: 45px !important;
+  box-sizing: border-box;
+}
+
+.summary-box .summary-mini-table--quotes thead th:nth-child(4),
+.summary-box .summary-mini-table--quotes tbody td:nth-child(4).summary-cell-stat {
+  width: 55px !important;
+  min-width: 55px !important;
+  max-width: 55px !important;
+  box-sizing: border-box;
 }
 
 .summary-box .summary-mini-table--quotes {
@@ -1471,15 +1508,15 @@ button:disabled {
 }
 
 .summary-box .summary-mini-table--quotes col.summary-col-count {
-  width: 86px !important;
-  min-width: 86px !important;
+  width: 94px !important;
+  min-width: 94px !important;
 }
 
-.summary-box .summary-mini-table--quotes thead th:nth-child(4),
+.summary-box .summary-mini-table--quotes thead th:nth-child(5),
 .summary-box .summary-mini-table--quotes tbody td.summary-cell-count {
-  width: 86px !important;
-  min-width: 86px !important;
-  max-width: 86px !important;
+  width: 94px !important;
+  min-width: 94px !important;
+  max-width: 94px !important;
   box-sizing: border-box;
 }
 
@@ -1582,7 +1619,7 @@ button:disabled {
 }
 
 .summary-box .summary-tx-count-num {
-  font-size: 1.18em;
+  font-size: 1em;
   font-weight: 600;
 }
 
@@ -1663,7 +1700,7 @@ button:disabled {
   align-items: center;
   justify-content: center;
   max-width: 100%;
-  padding: 0.1rem 0.45rem;
+  padding: 0.1rem 0.3rem;
   border-radius: 4px;
   border: 1px solid currentColor;
   font-weight: 600;
@@ -1680,7 +1717,7 @@ button:disabled {
   align-items: center;
   justify-content: center;
   margin-left: 0;
-  padding: 0.1rem 0.45rem;
+  padding: 0.1rem 0.3rem;
   border-radius: 4px;
   border: 1px solid currentColor;
   font-weight: 600;
@@ -2290,7 +2327,7 @@ button:disabled {
   align-items: center;
   justify-content: center;
   margin-left: 0.15rem;
-  padding: 0.06rem 0.35rem;
+  padding: 0.1rem 0.3rem;
   border-radius: 4px;
   border: 1px solid currentColor;
   font-weight: 600;
@@ -2327,7 +2364,7 @@ button:disabled {
   align-items: center;
   justify-content: center;
   max-width: 100%;
-  padding: 0.06rem 0.35rem;
+  padding: 0.1rem 0.3rem;
   border-radius: 4px;
   border: 2px solid currentColor;
   font-weight: 600;

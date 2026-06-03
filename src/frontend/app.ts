@@ -153,7 +153,7 @@ const TOP_MARKETS_PLACEHOLDER_ROW_HTML =
   '<tr class="summary-placeholder-row"><td>—</td><td>—</td><td>—</td><td class="summary-cell-count">—</td></tr>';
 
 const TOP_QUOTES_PLACEHOLDER_ROW_HTML =
-  '<tr class="summary-placeholder-row"><td>—</td><td>—</td><td class="summary-cell-stat">—</td><td class="summary-cell-count">—</td></tr>';
+  '<tr class="summary-placeholder-row"><td>—</td><td>—</td><td class="summary-cell-stat">—</td><td class="summary-cell-stat">—</td><td class="summary-cell-count">—</td></tr>';
 
 function buildTopProgramsPlaceholderRowsHtml(): string {
   return Array.from({ length: TOP_SUMMARY_PLACEHOLDER_ROW_COUNT }, () => TOP_PROGRAMS_PLACEHOLDER_ROW_HTML).join('');
@@ -1879,6 +1879,27 @@ function computeQuoteMintMarketCounts(trades: VybeTrade[], baseMint: string): Ma
   return counts;
 }
 
+function computeQuoteMintProgramCounts(trades: VybeTrade[], baseMint: string): Map<string, number> {
+  const programsByQuote = new Map<string, Set<string>>();
+  for (const t of trades) {
+    const quote = otherMint(t, baseMint).trim();
+    if (!quote || quote === baseMint) continue;
+    const prog = (t.programAddress ?? '').trim();
+    if (!prog) continue;
+    let programSet = programsByQuote.get(quote);
+    if (!programSet) {
+      programSet = new Set();
+      programsByQuote.set(quote, programSet);
+    }
+    programSet.add(prog);
+  }
+  const counts = new Map<string, number>();
+  for (const [quote, programSet] of programsByQuote) {
+    counts.set(quote, programSet.size);
+  }
+  return counts;
+}
+
 function renderSummaryEmpty(): void {
   summaryMeta.textContent = '—';
   topProgramsBody.innerHTML = buildTopProgramsPlaceholderRowsHtml();
@@ -2033,6 +2054,7 @@ async function renderSummaryFromTrades(trades: VybeTrade[]): Promise<void> {
   const quoteCountsMap = new Map(quotes.map((q) => [q.key, q.count]));
   const quoteCountRange = minMaxFromEntityCounts(quoteCountsMap);
   const quoteMarketCounts = computeQuoteMintMarketCounts(trades, baseMint);
+  const quoteProgramCounts = computeQuoteMintProgramCounts(trades, baseMint);
 
   topQuotesBody.innerHTML = quotes.length
     ? quotes
@@ -2041,10 +2063,12 @@ async function renderSummaryFromTrades(trades: VybeTrade[]): Promise<void> {
           const tone = quoteSymbolToneClass(sym);
           const mintLink = `<a href="${SOLSCAN_ACCOUNT}${encodeURIComponent(q.key)}" target="_blank" class="market-cell-link" title="${escapeHtml(q.key)}">${renderMarketAddressLabel(truncate(q.key, 4, 4), tone)}</a>`;
           const marketTotal = quoteMarketCounts.get(q.key) ?? 0;
+          const programTotal = quoteProgramCounts.get(q.key) ?? 0;
           return `<tr>
             <td class="summary-cell-symbol">${renderQuoteSymbolChip(sym)}</td>
             <td class="summary-cell-mint">${mintLink}</td>
             <td class="summary-cell-stat">${marketTotal.toLocaleString()}</td>
+            <td class="summary-cell-stat">${programTotal.toLocaleString()}</td>
             <td class="summary-cell-count">${renderSummaryCountCell(q.key, q.count, quoteCountsMap, quoteCountRange)}</td>
           </tr>`;
         })
