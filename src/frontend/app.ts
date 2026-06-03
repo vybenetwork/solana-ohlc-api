@@ -129,7 +129,7 @@ const tradesTable = document.getElementById('tradesTable') as HTMLTableElement |
 const TRADES_PLACEHOLDER_ROW_COUNT = 20;
 
 const TRADES_PLACEHOLDER_ROW_HTML =
-  '<tr class="trades-placeholder-row"><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="authority-fee-payer-single">—</td><td>—</td></tr>';
+  '<tr class="trades-placeholder-row"><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="authority-fee-payer-single">—</td><td>—</td><td>—</td></tr>';
 
 function buildTradesPlaceholderRowsHtml(): string {
   return Array.from({ length: TRADES_PLACEHOLDER_ROW_COUNT }, () => TRADES_PLACEHOLDER_ROW_HTML).join('');
@@ -672,26 +672,53 @@ function wrapCellWithVolumeBars(mainHtml: string, barsHtml: string): string {
   return `<span class="trades-cell-with-volume"><span class="trades-cell-with-volume__bars">${barsHtml}</span><span class="trades-cell-with-volume__main">${mainHtml}</span></span>`;
 }
 
-const AUTHORITY_FREQUENCY_BAR_COLOR = '#60a5fa';
+const AUTHORITY_TX_TIER_COLORS = {
+  low: '#22c55e',
+  mid: '#facc15',
+  high: '#fb923c',
+  veryHigh: '#ef4444',
+} as const;
 
-function renderAuthorityTxCountSuffix(
+function authorityTxTierClass(count: number): string {
+  if (count <= 4) return 'authority-tx-tier--low';
+  if (count <= 10) return 'authority-tx-tier--mid';
+  if (count <= 20) return 'authority-tx-tier--high';
+  return 'authority-tx-tier--very-high';
+}
+
+function authorityTxTierColor(count: number): string {
+  if (count <= 4) return AUTHORITY_TX_TIER_COLORS.low;
+  if (count <= 10) return AUTHORITY_TX_TIER_COLORS.mid;
+  if (count <= 20) return AUTHORITY_TX_TIER_COLORS.high;
+  return AUTHORITY_TX_TIER_COLORS.veryHigh;
+}
+
+function wrapAuthorityTierText(html: string, tierClass: string): string {
+  if (!html || html === '—' || !tierClass) return html;
+  return `<span class="authority-tier-text ${tierClass}">${html}</span>`;
+}
+
+function renderAuthorityCountCell(
   authorityKey: string,
   authorityCounts: Map<string, number>,
   authorityCountRange: { min: number; max: number } | null
 ): string {
-  if (!authorityKey) return '';
+  if (!authorityKey) return '—';
   const count = authorityCounts.get(authorityKey);
-  if (count == null || count === 0) return '';
+  if (count == null || count === 0) return '—';
+  const tierClass = authorityTxTierClass(count);
+  const barColor = authorityTxTierColor(count);
   const txLabel = count === 1 ? 'TX' : 'TXs';
-  const countMain = `<span class="authority-tx-count">${count.toLocaleString()} ${txLabel}</span>`;
+  const countMain = `<span class="authority-tx-count ${tierClass}">${count.toLocaleString()} ${txLabel}</span>`;
   const bars = renderScopedFrequencyBars(
     authorityKey,
     authorityCounts,
     authorityCountRange,
     'Authority frequency',
-    AUTHORITY_FREQUENCY_BAR_COLOR
+    barColor
   );
-  return bars ? wrapCellWithVolumeBars(countMain, bars) : countMain;
+  const inner = bars ? wrapCellWithVolumeBars(countMain, bars) : countMain;
+  return `<span class="authority-count-cell ${tierClass}">${inner}</span>`;
 }
 
 /** Outlined pool symbol chip in market column (stables / SOL / other colours unchanged). */
@@ -2496,8 +2523,10 @@ function renderTrades(trades: VybeTrade[], meta: { remoteCount: number; filtered
           const program = renderProgramDexChip(t.programAddress, programColorMap);
           const authority = (t.authorityAddress ?? '').trim();
           const feePayer = (t.feePayerAddress ?? '').trim();
-          const authorityTxCount = renderAuthorityTxCountSuffix(authority, authorityCounts, authorityCountRange);
-          const txCountInline = authorityTxCount ? ` ${authorityTxCount}` : '';
+          const authTxN = authority ? (authorityCounts.get(authority) ?? 0) : 0;
+          const authTier = authTxN > 0 ? authorityTxTierClass(authTxN) : '';
+          const authLink = (addr: string) =>
+            wrapAuthorityTierText(vybeLinkAccount(addr, truncate(addr, 4, 4)), authTier);
           const feePayerLink = feePayer
             ? `<span class="fee-payer-cell">(${vybeLinkAccount(feePayer, truncate(feePayer, 4, 4))})</span>`
             : '';
@@ -2507,14 +2536,15 @@ function renderTrades(trades: VybeTrade[], meta: { remoteCount: number; filtered
             !authority && !feePayer
               ? '—'
               : authority === feePayer
-                ? `${vybeLinkAccount(authority || undefined, truncate(authority || undefined, 4, 4))}${txCountInline}`
+                ? authLink(authority)
                 : authority && feePayer
-                  ? `<span class="authority-main-value">${vybeLinkAccount(authority, truncate(authority, 4, 4))}${txCountInline}</span><br>${feePayerLink}`
+                  ? `<span class="authority-main-value">${authLink(authority)}</span><br>${feePayerLink}`
                   : authority
-                    ? `${vybeLinkAccount(authority, truncate(authority, 4, 4))}${txCountInline}`
+                    ? authLink(authority)
                     : feePayer
                       ? feePayerLink
                       : '—';
+          const authorityCount = renderAuthorityCountCell(authority, authorityCounts, authorityCountRange);
           const txid = t.signature
             ? `<a href="${SOLSCAN_TX}${encodeURIComponent(t.signature)}" target="_blank" title="${t.signature}" class="txid-icon" aria-label="View transaction">↗</a>`
             : '—';
@@ -2529,6 +2559,7 @@ function renderTrades(trades: VybeTrade[], meta: { remoteCount: number; filtered
             <td>${market}</td>
             <td>${program}</td>
             <td class="${authorityFeePayerCellClass}">${authorityFeePayer}</td>
+            <td>${authorityCount}</td>
             <td>${txid}</td>
           </tr>`;
         })

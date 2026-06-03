@@ -2011,37 +2011,84 @@ button:disabled {
   vertical-align: middle;
 }
 
+#tradesTable .authority-tier-text.authority-tx-tier--low,
+#tradesTable .authority-tier-text.authority-tx-tier--low a {
+  color: #22c55e;
+}
+
+#tradesTable .authority-tier-text.authority-tx-tier--mid,
+#tradesTable .authority-tier-text.authority-tx-tier--mid a {
+  color: #facc15;
+}
+
+#tradesTable .authority-tier-text.authority-tx-tier--high,
+#tradesTable .authority-tier-text.authority-tx-tier--high a {
+  color: #fb923c;
+}
+
+#tradesTable .authority-tier-text.authority-tx-tier--very-high,
+#tradesTable .authority-tier-text.authority-tx-tier--very-high a {
+  color: #ef4444;
+}
+
+#tradesTable .authority-count-cell.authority-tx-tier--low,
+#tradesTable .authority-count-cell.authority-tx-tier--low .authority-tx-count {
+  color: #22c55e;
+}
+
+#tradesTable .authority-count-cell.authority-tx-tier--mid,
+#tradesTable .authority-count-cell.authority-tx-tier--mid .authority-tx-count {
+  color: #facc15;
+}
+
+#tradesTable .authority-count-cell.authority-tx-tier--high,
+#tradesTable .authority-count-cell.authority-tx-tier--high .authority-tx-count {
+  color: #fb923c;
+}
+
+#tradesTable .authority-count-cell.authority-tx-tier--very-high,
+#tradesTable .authority-count-cell.authority-tx-tier--very-high .authority-tx-count {
+  color: #ef4444;
+}
+
 #tradesTable .authority-tx-count {
-  color: #60a5fa;
   font-variant-numeric: tabular-nums;
   font-weight: inherit;
   font-size: inherit;
 }
 
-#tradesTable td:nth-child(9) .trades-cell-with-volume {
+#tradesTable th:nth-child(10),
+#tradesTable td:nth-child(10) {
+  width: 58px;
+  max-width: 58px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#tradesTable td:nth-child(10) .trades-cell-with-volume {
   display: inline-flex;
   align-items: center;
   gap: 0.2rem;
   vertical-align: middle;
 }
 
-#tradesTable td:nth-child(9) .trade-volume-bars {
+#tradesTable td:nth-child(10) .trade-volume-bars {
   height: 1.1em;
 }
 
-#tradesTable td:nth-child(9) .trade-volume-bar {
+#tradesTable td:nth-child(10) .trade-volume-bar {
   width: 0.22em;
   border-radius: 0.05em;
 }
 
-#tradesTable td:nth-child(9) .trade-volume-bar:nth-child(1) { height: 0.35em; }
-#tradesTable td:nth-child(9) .trade-volume-bar:nth-child(2) { height: 0.5em; }
-#tradesTable td:nth-child(9) .trade-volume-bar:nth-child(3) { height: 0.65em; }
-#tradesTable td:nth-child(9) .trade-volume-bar:nth-child(4) { height: 0.8em; }
-#tradesTable td:nth-child(9) .trade-volume-bar:nth-child(5) { height: 0.95em; }
+#tradesTable td:nth-child(10) .trade-volume-bar:nth-child(1) { height: 0.35em; }
+#tradesTable td:nth-child(10) .trade-volume-bar:nth-child(2) { height: 0.5em; }
+#tradesTable td:nth-child(10) .trade-volume-bar:nth-child(3) { height: 0.65em; }
+#tradesTable td:nth-child(10) .trade-volume-bar:nth-child(4) { height: 0.8em; }
+#tradesTable td:nth-child(10) .trade-volume-bar:nth-child(5) { height: 0.95em; }
 
-#tradesTable th:nth-child(10),
-#tradesTable td:nth-child(10) { width: 24px; max-width: 24px; min-width: 24px; }
+#tradesTable th:nth-child(11),
+#tradesTable td:nth-child(11) { width: 24px; max-width: 24px; min-width: 24px; }
 #tradesTable .fee-payer-cell {
   font-size: 5pt;
   color: #facc15;
