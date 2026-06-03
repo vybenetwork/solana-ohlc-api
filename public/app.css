@@ -3421,7 +3421,6 @@ tr:hover td {
   font-size: 1rem;
   color: #a1a1aa;
   line-height: 1.5;
-  margin-bottom: 13px;
   margin-left: 13px;
 }
 
@@ -3437,7 +3436,6 @@ tr:hover td {
   border-radius: 3px;
   padding: 0.25rem 0.5rem;
   margin-left: 13px;
-  margin-bottom: 13px;
 }
 
 .section-error[hidden] {
