@@ -1684,6 +1684,20 @@ button:disabled {
   padding: 0.28rem 0.26rem;
   vertical-align: middle;
   border-bottom: 1px solid #3f3f46;
+  box-shadow: 0 1px 0 #3f3f46, 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+#tradesTable tbody tr:not(.trades-placeholder-row):nth-child(even) td {
+  background: rgba(24, 24, 27, 0.5);
+}
+
+#tradesTable tbody tr:not(.trades-placeholder-row):hover td {
+  background: rgba(59, 130, 246, 0.09);
+  transition: background 0.12s ease;
+}
+
+#tradesTable tbody tr:not(.trades-placeholder-row) td {
+  border-bottom: 1px solid rgba(63, 63, 70, 0.35);
 }
 
 #tradesTable thead th .trades-th-fee-payer-label {
