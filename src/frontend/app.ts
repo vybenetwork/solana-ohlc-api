@@ -2497,9 +2497,9 @@ function renderTrades(trades: VybeTrade[], meta: { remoteCount: number; filtered
           const authority = (t.authorityAddress ?? '').trim();
           const feePayer = (t.feePayerAddress ?? '').trim();
           const authorityTxCount = renderAuthorityTxCountSuffix(authority, authorityCounts, authorityCountRange);
-          const txCountBlock = authorityTxCount ? `<br>${authorityTxCount}` : '';
+          const txCountInline = authorityTxCount ? ` ${authorityTxCount}` : '';
           const feePayerLink = feePayer
-            ? `<span class="fee-payer-cell">(${vybeLinkAccount(feePayer, truncate(feePayer, 4, 4))}${txCountBlock})</span>`
+            ? `<span class="fee-payer-cell">(${vybeLinkAccount(feePayer, truncate(feePayer, 4, 4))})</span>`
             : '';
           const hasTwoValues = !!(authority && feePayer && authority !== feePayer);
           const authorityFeePayerCellClass = hasTwoValues ? 'authority-fee-payer-double' : 'authority-fee-payer-single';
@@ -2507,11 +2507,11 @@ function renderTrades(trades: VybeTrade[], meta: { remoteCount: number; filtered
             !authority && !feePayer
               ? '—'
               : authority === feePayer
-                ? `${vybeLinkAccount(authority || undefined, truncate(authority || undefined, 4, 4))}${txCountBlock}`
+                ? `${vybeLinkAccount(authority || undefined, truncate(authority || undefined, 4, 4))}${txCountInline}`
                 : authority && feePayer
-                  ? `<span class="authority-main-value">${vybeLinkAccount(authority, truncate(authority, 4, 4))}</span><br>${feePayerLink}`
+                  ? `<span class="authority-main-value">${vybeLinkAccount(authority, truncate(authority, 4, 4))}${txCountInline}</span><br>${feePayerLink}`
                   : authority
-                    ? `${vybeLinkAccount(authority, truncate(authority, 4, 4))}${txCountBlock}`
+                    ? `${vybeLinkAccount(authority, truncate(authority, 4, 4))}${txCountInline}`
                     : feePayer
                       ? feePayerLink
                       : '—';

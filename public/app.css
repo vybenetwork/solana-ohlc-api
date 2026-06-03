@@ -1986,8 +1986,8 @@ button:disabled {
 }
 #tradesTable th:nth-child(9),
 #tradesTable td:nth-child(9) {
-  width: 90px;
-  max-width: 90px;
+  width: 128px;
+  max-width: 128px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
@@ -2014,14 +2014,31 @@ button:disabled {
 #tradesTable .authority-tx-count {
   color: #60a5fa;
   font-variant-numeric: tabular-nums;
-  font-weight: 600;
-  font-size: 0.75rem;
+  font-weight: inherit;
+  font-size: inherit;
 }
 
-#tradesTable .fee-payer-cell .authority-tx-count {
-  display: inline-block;
-  margin-top: 0.12rem;
+#tradesTable td:nth-child(9) .trades-cell-with-volume {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  vertical-align: middle;
 }
+
+#tradesTable td:nth-child(9) .trade-volume-bars {
+  height: 1.1em;
+}
+
+#tradesTable td:nth-child(9) .trade-volume-bar {
+  width: 0.22em;
+  border-radius: 0.05em;
+}
+
+#tradesTable td:nth-child(9) .trade-volume-bar:nth-child(1) { height: 0.35em; }
+#tradesTable td:nth-child(9) .trade-volume-bar:nth-child(2) { height: 0.5em; }
+#tradesTable td:nth-child(9) .trade-volume-bar:nth-child(3) { height: 0.65em; }
+#tradesTable td:nth-child(9) .trade-volume-bar:nth-child(4) { height: 0.8em; }
+#tradesTable td:nth-child(9) .trade-volume-bar:nth-child(5) { height: 0.95em; }
 
 #tradesTable th:nth-child(10),
 #tradesTable td:nth-child(10) { width: 24px; max-width: 24px; min-width: 24px; }
