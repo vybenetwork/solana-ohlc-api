@@ -39,7 +39,7 @@
     <meta name="twitter:image:alt" content="Solana OHLC candlestick chart API app powered by Vybe API" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="app.css?v=106" />
+    <link rel="stylesheet" href="app.css?v=107" />
     <script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
   </head>
   <body>
@@ -170,9 +170,9 @@
           </div>
           <span class="candles-pages-progress section-header-status" id="candlesPagesProgress" aria-live="polite"></span>
         </div>
-        <p class="section-lede meta remote-filters-help">
+        <div class="section-lede meta remote-filters-help">
           <strong>Remote filters</strong> fetch trades from the Vybe API and change the dataset.
-        </p>
+        </div>
         <div class="candles-controls candles-controls--remote">
           <div class="field field-switch candles-source-switch">
             <div class="field-switch-header">
@@ -391,9 +391,9 @@
           </div>
           <span class="section-error" id="candlesError" hidden aria-hidden="true"></span>
         </div>
-        <p class="section-lede meta">
+        <div class="section-lede meta">
           Candles from Vybe OHLC API (Full), rebuilt from trades, or by market via Vybe OHLC by Market API.
-        </p>
+        </div>
         <div class="candles-chart-wrapper">
           <div id="candlesChart" class="candles-chart" aria-label="Price candlestick chart"></div>
           <div id="candlesChartOverlay" class="candles-chart-overlay" aria-live="polite"></div>
@@ -504,7 +504,7 @@
           </div>
         </div>
         <h3 class="section-subtitle local-filters-subtitle">Per-quote mint (min/max size, spam filter)</h3>
-        <p class="section-lede meta">Set min/max quote size per quote token. Filled after fetch from loaded trades.</p>
+        <div class="section-lede meta">Set min/max quote size per quote token. Filled after fetch from loaded trades.</div>
         <div id="perQuoteFiltersContainer" class="local-filters-dynamic"></div>
       </section>
 
@@ -518,7 +518,7 @@
           </div>
           <span class="section-error" id="summaryError" hidden aria-hidden="true"></span>
         </div>
-        <p class="meta" id="summaryMeta">—</p>
+        <div class="section-lede meta" id="summaryMeta">—</div>
         <div class="summary-grid">
           <div class="summary-box">
             <h3>Programs (top 5)</h3>

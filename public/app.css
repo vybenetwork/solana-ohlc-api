@@ -771,7 +771,6 @@ a:hover {
   gap: 0.5rem 0.75rem;
   padding-bottom: 0.65rem;
   margin-bottom: 0.15rem;
-  border-bottom: 1px solid rgba(63, 63, 70, 0.4);
 }
 
 .section-header__marker {
@@ -824,7 +823,7 @@ a:hover {
 .section-lede.meta {
   margin: 0 0 0.85rem;
   padding: 0.55rem 0.75rem;
-  max-width: none;
+  max-width: fit-content;
   font-size: 0.82rem;
   line-height: 1.55;
   color: #a1a1aa;
@@ -1267,6 +1266,8 @@ button:disabled {
 .section-header .section-loading,
 .section-header .section-error,
 .section-header .section-warning {
+  margin: 0 0 0 6px;
+  max-height: 30px;
   align-self: center;
   flex-shrink: 1;
   min-width: 0;
