@@ -818,6 +818,7 @@ a:hover {
   font-weight: 650;
   letter-spacing: -0.01em;
   color: #f4f4f5;
+  text-transform: none;
 }
 
 .section-lede.meta {
@@ -1249,7 +1250,7 @@ button:disabled {
 .section-header {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  gap: 0.5rem;
   flex-wrap: wrap;
   min-height: 40px;
   max-height: 40px;
@@ -1259,6 +1260,16 @@ button:disabled {
 .section-header__title {
   margin: 0;
   font-size: 1.05rem;
+  line-height: 40px;
+  height: 40px;
+}
+
+.section-header .section-loading,
+.section-header .section-error,
+.section-header .section-warning {
+  align-self: center;
+  flex-shrink: 1;
+  min-width: 0;
 }
 
 .section-error {
@@ -4154,11 +4165,11 @@ tr:hover td {
   margin: 0 0 0.5rem;
   padding-bottom: 0.45rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #a1a1aa;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: #d4d4d8;
 }
 
 .token-section-content .token-stat-rows {
@@ -4487,11 +4498,11 @@ tr:hover td {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  color: #a1a1aa;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  color: #d4d4d8;
+  text-transform: none;
+  letter-spacing: 0.01em;
   margin: 0;
 }
 
