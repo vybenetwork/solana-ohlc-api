@@ -1,4 +1,4 @@
-# Solana OHLC Candlestick Data API
+# Solana OHLC API
 
 <p align="center">
 
