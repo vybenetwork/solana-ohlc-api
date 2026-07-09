@@ -15,7 +15,7 @@
 
 It includes a production-ready Node.js backend and a modern frontend that integrate Vybe’s token candles, market candles, and trades endpoints—explore candlestick charts from vetted markets, rebuild OHLC from trade history, or fetch by market address, with CSV export for downstream analysis.
 
-Try the live demo: https://solana-ohlc-candlestick-data-api.vybenetwork.com
+Try the live demo: https://solana-ohlc-api.vybenetwork.com
 
 ![Solana OHLC Candlestick Data API Repo](screenshots/solana-ohlc-candlestick-data-api-repo.png)
 
@@ -26,7 +26,7 @@ Try the live demo: https://solana-ohlc-candlestick-data-api.vybenetwork.com
 
 ---
 
-**[Try the LIVE demo →](https://solana-ohlc-candlestick-data-api.vybenetwork.com)**
+**[Try the LIVE demo →](https://solana-ohlc-api.vybenetwork.com)**
 
 **[Get your free Vybe API key →](https://vybe.fyi/api-pricing)**  
 
