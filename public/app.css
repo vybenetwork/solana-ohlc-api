@@ -493,10 +493,10 @@ a:hover {
 }
 
 .page-masthead__btns--related .page-masthead__btn-text {
-  flex: 1;
+  flex: 1 1 0%;
   min-width: 0;
   text-align: left;
-  font-size: 17pt;
+  font-size: 15pt;
   margin-left: 18px;
 }
 
@@ -726,6 +726,23 @@ a:hover {
   text-decoration: none;
   box-shadow: 0 4px 14px rgba(249, 115, 22, 0.18);
 }
+.page-masthead__btn--demo-soon {
+  background: linear-gradient(135deg, rgba(107, 114, 128, 0.12) 0%, rgba(55, 65, 81, 0.08) 100%);
+  border-color: rgba(156, 163, 175, 0.22);
+  color: #9ca3af;
+  cursor: default;
+  pointer-events: none;
+}
+
+.page-masthead__btn--demo-soon .page-masthead__demo-preview {
+  background: rgba(107, 114, 128, 0.18);
+}
+
+.page-masthead__btn--demo-soon:hover {
+  transform: none;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+}
+
 
 
 @media (max-width: 1024px) {
