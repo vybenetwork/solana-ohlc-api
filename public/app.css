@@ -475,7 +475,7 @@ a:hover {
 
 .page-masthead__btns--related {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.5rem;
   width: 100%;
 }
@@ -730,7 +730,7 @@ a:hover {
 
 @media (max-width: 1024px) {
   .page-masthead__btns--related {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
