@@ -31,6 +31,7 @@ Try the live demo: https://solana-ohlc-api.vybenetwork.com
 - **[Candlestick API endpoint →](https://docs.vybenetwork.com/reference/get_token_trade_ohlc_v4)**
 - **[Market OHLC endpoint →](https://docs.vybenetwork.com/reference/get_market_filtered_ohlcv_v4)**
 - **[GitHub repo →](https://github.com/vybenetwork/solana-ohlc-api)**
+- **[Telegram →](https://t.me/VybeNetwork_Official)**
 - **[X →](https://x.com/Vybe_Network)**
 
 ---
@@ -412,6 +413,7 @@ time,time_iso,open,high,low,close,volume
 
 ## Support
 
+- **Telegram:** [VybeNetwork Official](https://t.me/VybeNetwork_Official)
 - **X:** [@Vybe_Network](https://x.com/Vybe_Network)
 - **GitHub:** [solana-ohlc-candlestick-data-api](https://github.com/vybenetwork/solana-ohlc-api)
 - **Support ticket:** [Submit a ticket via vybenetwork.xyz](https://vybenetwork.com)
