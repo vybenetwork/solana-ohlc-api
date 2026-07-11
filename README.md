@@ -8,7 +8,6 @@
 [![Candlestick API](https://img.shields.io/badge/Endpoint-Candlestick%20API-6366f1?style=for-the-badge&logo=swagger&logoColor=white)](https://docs.vybenetwork.com/reference/get_token_trade_ohlc_v4)
 [![Market OHLC API](https://img.shields.io/badge/Endpoint-Market%20OHLCV-8b5cf6?style=for-the-badge&logo=swagger&logoColor=white)](https://docs.vybenetwork.com/reference/get_market_filtered_ohlcv_v4)
 [![X](https://img.shields.io/badge/X-Vybe__Network-000000?style=for-the-badge&logo=x)](https://x.com/Vybe_Network)
-[![Telegram](https://img.shields.io/badge/Telegram-VybeNetwork-26A5E4?style=for-the-badge&logo=telegram)](https://t.me/VybeNetwork_Official)
 </p>
 
 **Solana OHLC Candlestick Data API:** This repository demonstrates how to use the Vybe Solana OHLC candlestick data API to fetch, display, and export OHLC candlestick data for any Token-2022 or SPL token. Use this project as a reference implementation or starter kit for building Solana price charting UIs, backtesting pipelines, and on-chain analytics.
@@ -32,7 +31,6 @@ Try the live demo: https://solana-ohlc-api.vybenetwork.com
 - **[Candlestick API endpoint →](https://docs.vybenetwork.com/reference/get_token_trade_ohlc_v4)**
 - **[Market OHLC endpoint →](https://docs.vybenetwork.com/reference/get_market_filtered_ohlcv_v4)**
 - **[GitHub repo →](https://github.com/vybenetwork/solana-ohlc-api)**
-- **[Telegram →](https://t.me/VybeNetwork_Official)**
 - **[X →](https://x.com/Vybe_Network)**
 
 ---
@@ -199,7 +197,6 @@ The top of the UI controls the request sent to the API:
 These map to the proxy routes in `src/server.ts` and are forwarded to Vybe.
 
 ### Local filters (no refetch)
-
 
 After trades are loaded (OHLC from Trades mode), local filters apply **in-browser only**:
 
@@ -415,7 +412,6 @@ time,time_iso,open,high,low,close,volume
 
 ## Support
 
-- **Telegram:** [VybeNetwork Official](https://t.me/VybeNetwork_Official)
 - **X:** [@Vybe_Network](https://x.com/Vybe_Network)
 - **GitHub:** [solana-ohlc-candlestick-data-api](https://github.com/vybenetwork/solana-ohlc-api)
 - **Support ticket:** [Submit a ticket via vybenetwork.xyz](https://vybenetwork.com)
