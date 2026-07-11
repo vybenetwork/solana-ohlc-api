@@ -39,7 +39,7 @@
     <meta name="twitter:image:alt" content="Solana OHLC API app powered by Vybe API" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="app.css?v=109" />
+    <link rel="stylesheet" href="app.css?v=110" />
     <script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
   </head>
   <body>
@@ -183,13 +183,18 @@
                 <span class="page-masthead__btn-text">DeFi Positions API</span>
               </a>
             
-              <span class="page-masthead__btn page-masthead__btn--demo page-masthead__btn--demo-soon" aria-disabled="true">
+              <span
+                class="page-masthead__btn page-masthead__btn--demo page-masthead__btn--demo-ohlc page-masthead__btn--demo-current"
+                aria-current="page"
+                title="Already selected — currently viewing this demo"
+              >
                 <span class="page-masthead__demo-preview" aria-hidden="true">
-                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='91' height='48'%3E%3Crect fill='%23374151' width='91' height='48'/%3E%3C/svg%3E" alt="" loading="lazy" decoding="async" />
+                  <img src="/solana-ohlc-candlestick-data-api.jpg" alt="" loading="lazy" decoding="async" />
                 </span>
-                <span class="page-masthead__btn-text">More Coming Soon</span>
+                <span class="page-masthead__btn-text">OHLC Candles API</span>
+                <span class="page-masthead__demo-selected-icon" aria-hidden="true"></span>
               </span>
-            </div>
+</div>
           </div>
         </div>
       </nav>
