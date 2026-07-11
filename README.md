@@ -8,7 +8,6 @@
 [![Token OHLC API](https://img.shields.io/badge/Endpoint-Token%20trade%20OHLC-6366f1?style=for-the-badge&logo=swagger&logoColor=white)](https://docs.vybenetwork.com/reference/get_token_trade_ohlc_v4)
 [![Market OHLC API](https://img.shields.io/badge/Endpoint-Market%20OHLCV-8b5cf6?style=for-the-badge&logo=swagger&logoColor=white)](https://docs.vybenetwork.com/reference/get_market_filtered_ohlcv_v4)
 [![X](https://img.shields.io/badge/X-Vybe__Network-000000?style=for-the-badge&logo=x)](https://x.com/Vybe_Network)
-
 [![Telegram](https://img.shields.io/badge/Telegram-VybeNetwork-26A5E4?style=for-the-badge&logo=telegram)](https://t.me/VybeNetwork_Official)
 </p>
 
