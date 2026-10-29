@@ -6,6 +6,7 @@ import express, { type Request, type Response } from 'express';
 import path from 'path';
 import { loadEnv, getApiKey, PUBLIC_DIR } from './config.js';
 import { serveIndexWithGoogleTag } from './google-tag.js';
+import { serveRootKeyFile } from './root-key-file.js';
 import { createClient } from './api/index.js';
 import { toHumanReadableError } from './api/client.js';
 import type { GetTradesParams, TradesSortField } from './api/trades.js';
@@ -35,6 +36,7 @@ for (const socialImagePath of ['/og.jpg', '/solana-ohlc-candlestick-data-api.jpg
   });
 }
 
+app.use(serveRootKeyFile());
 app.use(serveIndexWithGoogleTag(PUBLIC_DIR));
 app.use(express.static(PUBLIC_DIR));
 
