@@ -26,7 +26,7 @@ Try the live demo: https://solana-ohlc-api.vybenetwork.com
 ---
 
 - **[Try the LIVE demo →](https://solana-ohlc-api.vybenetwork.com)**
-- **[Get your free Vybe API key →](https://vybe.fyi/api-pricing)**
+- **[Get your free Vybe API key →](https://vybe.fyi/api-pricing?utm_source=ohlc-api-readme&utm_medium=referral)**
 - **[Vybe OHLC candles guide →](https://docs.vybenetwork.com/docs/fetch-ohlc-candles)**
 - **[Candlestick API endpoint →](https://docs.vybenetwork.com/reference/get_token_trade_ohlc_v4)**
 - **[Market OHLC endpoint →](https://docs.vybenetwork.com/reference/get_market_filtered_ohlcv_v4)**
@@ -65,7 +65,7 @@ Then open **http://localhost:3000**, enter a token mint (or market address when 
 | `PORT`            | No       | HTTP server port                                                            | `3000`                                    |
 | `TUNNEL`          | No       | Set to `1` to run behind a Cloudflare Tunnel                               | `1`                                       |
 
-Get your API key at `https://vybe.fyi/api-pricing`.
+Get your API key at `https://vybe.fyi/api-pricing?utm_source=ohlc-api-readme&utm_medium=referral`.
 
 ---
 
