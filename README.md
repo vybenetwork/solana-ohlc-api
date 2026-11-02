@@ -4,10 +4,10 @@
 
 [![Demo](https://img.shields.io/badge/Demo-Solana%20OHLC%20API%20live%20app-c2410c?style=for-the-badge&logo=googlechrome&logoColor=white)](https://solana-ohlc-api.vybenetwork.com)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-5b21b6?style=for-the-badge&logo=github&logoColor=white)](https://github.com/vybenetwork/solana-ohlc-api)
-[![OHLC guides](https://img.shields.io/badge/Guides-Fetch%20OHLC%20candles-1e40af?style=for-the-badge&logo=gitbook&logoColor=white)](https://docs.vybenetwork.com/docs/fetch-ohlc-candles)
+[![OHLC guides](https://img.shields.io/badge/Guides-Fetch%20OHLC%20candles-3b82f6?style=for-the-badge&logo=gitbook&logoColor=white)](https://docs.vybenetwork.com/docs/fetch-ohlc-candles)
 [![Candlestick API](https://img.shields.io/badge/Endpoint-Candlestick%20API-6366f1?style=for-the-badge&logo=swagger&logoColor=white)](https://docs.vybenetwork.com/reference/get_token_trade_ohlc_v4)
 [![Market OHLC API](https://img.shields.io/badge/Endpoint-Market%20OHLCV-8b5cf6?style=for-the-badge&logo=swagger&logoColor=white)](https://docs.vybenetwork.com/reference/get_market_filtered_ohlcv_v4)
-[![API Key](https://img.shields.io/badge/API%20Key-Get%20yours-047857?style=for-the-badge)](https://vybe.fyi/api-pricing?utm_source=ohlc-api-readme&utm_medium=referral)
+[![API Key](https://img.shields.io/badge/Vybe-API%20key-1e3a8a?style=for-the-badge&logo=gitbook&logoColor=white)](https://vybe.fyi/api-pricing?utm_source=ohlc-api-readme&utm_medium=referral)
 [![X](https://img.shields.io/badge/X-Vybe__Network-000000?style=for-the-badge&logo=x)](https://x.com/Vybe_Network)
 </p>
 
