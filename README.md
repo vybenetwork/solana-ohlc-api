@@ -65,7 +65,7 @@ Then open **http://localhost:3000**, enter a token mint (or market address when 
 | `PORT`            | No       | HTTP server port                                                            | `3000`                                    |
 | `TUNNEL`          | No       | Set to `1` to run behind a Cloudflare Tunnel                               | `1`                                       |
 
-Get your API key at `https://vybe.fyi/api-pricing?utm_source=ohlc-api-readme&utm_medium=referral`.
+Get your API key at [`https://vybe.fyi/api-pricing`](https://vybe.fyi/api-pricing?utm_source=ohlc-api-readme&utm_medium=referral).
 
 ---
 
