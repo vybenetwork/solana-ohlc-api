@@ -2,7 +2,7 @@
 
 <p align="center">
 
-[![Demo](https://img.shields.io/badge/Demo-Solana%20OHLC%20API%20live%20app-c2410c?style=for-the-badge&logo=googlechrome&logoColor=white)](https://solana-ohlc-api.vybenetwork.com)
+[![Demo](https://img.shields.io/badge/Demo-Solana%20OHLC%20API%20live%20app-c2410c?style=for-the-badge&logo=googlechrome&logoColor=white)](https://solana-ohlc-api.vybenetwork.com?utm_source=ohlc-api-readme&utm_medium=referral)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-5b21b6?style=for-the-badge&logo=github&logoColor=white)](https://github.com/vybenetwork/solana-ohlc-api)
 [![OHLC guides](https://img.shields.io/badge/Guides-Fetch%20OHLC%20candles-3b82f6?style=for-the-badge&logo=gitbook&logoColor=white)](https://docs.vybenetwork.com/docs/fetch-ohlc-candles)
 [![Candlestick API](https://img.shields.io/badge/Endpoint-Candlestick%20API-6366f1?style=for-the-badge&logo=swagger&logoColor=white)](https://docs.vybenetwork.com/reference/get_token_trade_ohlc_v4)
@@ -15,7 +15,7 @@
 
 It includes a production-ready Node.js backend and a modern frontend that integrate Vybe’s token candles, market candles, and trades endpoints—explore candlestick charts from vetted markets, rebuild OHLC from trade history, or fetch by market address, with CSV export for downstream analysis.
 
-Try the live demo: https://solana-ohlc-api.vybenetwork.com
+Try the live demo: [`https://solana-ohlc-api.vybenetwork.com`](https://solana-ohlc-api.vybenetwork.com?utm_source=ohlc-api-readme&utm_medium=referral)
 
 ![Solana OHLC Candlestick Data API Repo](screenshots/solana-ohlc-candlestick-data-api-repo.png)
 
@@ -26,7 +26,7 @@ Try the live demo: https://solana-ohlc-api.vybenetwork.com
 
 ---
 
-- **[Try the LIVE demo →](https://solana-ohlc-api.vybenetwork.com)**
+- **[Try the LIVE demo →](https://solana-ohlc-api.vybenetwork.com?utm_source=ohlc-api-readme&utm_medium=referral)**
 - **[Get your free Vybe API key →](https://vybe.fyi/api-pricing?utm_source=ohlc-api-readme&utm_medium=referral)**
 - **[Vybe OHLC candles guide →](https://docs.vybenetwork.com/docs/fetch-ohlc-candles)**
 - **[Candlestick API endpoint →](https://docs.vybenetwork.com/reference/get_token_trade_ohlc_v4)**
