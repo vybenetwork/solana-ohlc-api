@@ -51,8 +51,57 @@
     <meta name="twitter:image:alt" content="Solana OHLC API app powered by Vybe API" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="app.css?v=121" />
+    <link rel="stylesheet" href="app.css?v=124" />
     <script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
+      <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "name": "Solana OHLC API",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Web",
+          "url": "https://solana-ohlc-api.vybenetwork.com/",
+          "description": "Build Solana OHLC charts with the Vybe Solana API for SPL and Token-2022 tokens: resolutions, wick filters, backtesting exports and on-chain charting tools.",
+          "provider": {
+            "@type": "Organization",
+            "name": "Vybe Network",
+            "url": "https://vybe.fyi/"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Where do these candles come from?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Token or market trade candles: Solana trade OHLC for that mint or market."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do I get a Vybe API key?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Generate a free API key on Vybe. A free key starts your first calls. Paid plans raise the rate limit."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do token and market candles differ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Token candles cover the mint. Market candles cover one market address."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div class="container">
@@ -278,6 +327,66 @@
         </div>
       </nav>
     </header>
+
+      <section class="seo-answer" aria-labelledby="ohlcAnswerTitle">
+        <p class="seo-answer__eyebrow"><span>Vybe</span><span class="seo-answer__pill">Trade candles</span></p>
+        <div class="seo-answer__top">
+          <div class="seo-answer__intro">
+            <h2 id="ohlcAnswerTitle">Trade candles for a token or a market</h2>
+            <p>This page charts open, high, low, and close from Solana trades for a token mint or one market. Set the resolution and a close-to-open gap filter. You can page the series and export the candles that loaded.</p>
+            <p>The trade tape under the chart uses the same mint, and program addresses are labeled from known program accounts beside each trade. A free API key on Vybe is enough to start. Paid plans raise the rate limit.</p>
+            <a class="page-masthead__btn page-masthead__btn--key" href="https://vybe.fyi/api-pricing?utm_source=ohlc&amp;utm_medium=referral">
+              <span class="page-masthead__btn-icon page-masthead__btn-icon--key" aria-hidden="true"></span>
+              Generate a free API key to get started
+            </a>
+          </div>
+          <aside class="seo-answer__endpoints" aria-label="Endpoints Used">
+            <h3><svg class="seo-answer__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h12"/><path d="M8 12h12"/><path d="M8 18h12"/><path d="M4 6h.01"/><path d="M4 12h.01"/><path d="M4 18h.01"/></svg>Endpoints Used:</h3>
+            <ul>
+          <li><span>Token OHLCV API</span> <code>GET /v4/tokens/{mintAddress}/candles</code></li>
+          <li><span>Market OHLCV API</span> <code>GET /v4/markets/{marketAddress}/candles</code></li>
+          <li><span>Historical Trades API</span> <code>GET /v4/trades</code></li>
+          <li><span>Token Details API</span> <code>GET /v4/tokens/{mintAddress}</code></li>
+          <li><span>Labeled Programs API</span> <code>GET /v4/programs/labeled-program-accounts</code></li>
+            </ul>
+          </aside>
+        </div>
+        <ul class="seo-answer__cards">
+        <li class="seo-answer__card seo-answer__card--price">
+          <h3><svg class="seo-answer__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 16l5-5 3.5 3.5L20 7"/><path d="M14 7h6v6"/></svg>Token candles</h3>
+          <p>Open, high, low, and close built from trades for the token mint.</p>
+        </li>
+        <li class="seo-answer__card seo-answer__card--candles">
+          <h3><svg class="seo-answer__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16"/><path d="M7 8h3v6H7z"/><path d="M17 4v16"/><path d="M14 11h3v5h-3z"/></svg>Market candles</h3>
+          <p>The same OHLC for one market address instead of the whole mint.</p>
+        </li>
+        <li class="seo-answer__card seo-answer__card--history">
+          <h3><svg class="seo-answer__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>Resolution</h3>
+          <p>Pick a candle size, and drop close-to-open gaps for a tighter chart.</p>
+        </li>
+        <li class="seo-answer__card seo-answer__card--product">
+          <h3><svg class="seo-answer__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h8l4 4v14H7z"/><path d="M15 3v5h5"/><path d="M10 13h6"/><path d="M10 17h4"/></svg>Trade tape</h3>
+          <p>Trades for the mint load under the chart, with program labels.</p>
+        </li>
+        </ul>
+        <div class="seo-answer__faq">
+          <p class="seo-answer__label">Also answered here</p>
+          <div class="seo-answer__faq-grid">
+          <article>
+            <h3>Where do these candles come from?</h3>
+            <p>Token or market trade candles: Solana trade OHLC for that mint or market.</p>
+          </article>
+          <article>
+            <h3>How do I get a Vybe API key?</h3>
+            <p><a href="https://vybe.fyi/api-pricing?utm_source=ohlc&amp;utm_medium=referral">Generate a free API key on Vybe</a>. A free key starts your first calls. Paid plans raise the rate limit.</p>
+          </article>
+          <article>
+            <h3>How do token and market candles differ?</h3>
+            <p>Token candles cover the mint. Market candles cover one market address.</p>
+          </article>
+          </div>
+        </div>
+      </section>
 
       <section class="section-card section-card--remote inputs panel">
         <div class="section-heading">
