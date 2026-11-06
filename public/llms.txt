@@ -2,10 +2,27 @@
 
 > Build Solana OHLC charts with the Vybe Solana API for SPL and Token-2022 tokens: resolutions, wick filters, backtesting exports and on-chain charting tools.
 
-Live demo of the Vybe Solana API. The linked docs pages are the Markdown versions.
+This is a free demo that showcases the Vybe candle endpoints. Open it in the browser to test and demo them. Nothing to install. The linked docs pages are the Markdown versions.
+
+## What this demo shows
+This page charts open, high, low, and close from Solana trades for a token mint or one market. Set the resolution and a close-to-open gap filter. You can page the series and export the candles that loaded. The trade tape under the chart uses the same mint, and program addresses are labeled.
+
+- Token candles: open, high, low, and close built from trades for the token mint.
+- Market candles: the same OHLC for one market address instead of the whole mint.
+- Resolution: pick a candle size, and drop close-to-open gaps for a tighter chart.
+- Trade tape: trades for the mint load under the chart, with program labels.
+
+## Endpoints this demo calls
+- Token OHLCV API: `GET /v4/tokens/{mintAddress}/candles`
+- Market OHLCV API: `GET /v4/markets/{marketAddress}/candles`
+- Historical Trades API: `GET /v4/trades`
+- Token Details API: `GET /v4/tokens/{mintAddress}`
+- Labeled Programs API: `GET /v4/programs/labeled-program-accounts`
+
+The demo page is free to use. Token OHLCV is on the Free plan, the lowest tier. A free API key starts the first calls. Paid plans raise the rate limit.
 
 ## Demo
-- [Solana OHLC API](https://solana-ohlc-api.vybenetwork.com/): Build Solana OHLC charts with the Vybe Solana API for SPL and Token-2022 tokens: resolutions, wick filters, backtesting exports and on-chain charting tools.
+- [Solana OHLC API](https://solana-ohlc-api.vybenetwork.com/): Free browser demo of the candle endpoints. Chart a mint or a market, then export the candles.
 
 ## Docs
 - [Fetch OHLC Candles](https://docs.vybenetwork.com/docs/fetch-ohlc-candles.md)
